@@ -9,10 +9,10 @@
 
 | Integrante | Track Oficial |
 | :--- | :--- |
-| **Emmanuel Gutiérrez** | `Track .NET` |
-| **Andrés Carrasco** | `Track .NET` |
-| **Micaela Mulato** | `Track React` |
-| **Máximo Porretti** | `Track React` |
+| **Emmanuel Gutiérrez** | `Track .NET-React` |
+| **Andrés Carrasco** | `Track .NET-React` |
+| **Micaela Mulato** | `Track .NET-React` |
+| **Máximo Porretti** | `Track .NET-React` |
 
 ---
 
