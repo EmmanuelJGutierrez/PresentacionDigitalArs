@@ -702,6 +702,57 @@
       line-height: 1.5;
     }
 
+    /* Badge de Estadística WebAIM */
+    .webaim-stat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 7px 12px;
+      background: rgba(37, 99, 235, 0.1);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .webaim-stat-badge:hover {
+      background: rgba(37, 99, 235, 0.18);
+      border-color: rgba(37, 99, 235, 0.55);
+    }
+
+    .webaim-stat-number {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+      white-space: nowrap;
+    }
+
+    .webaim-stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .webaim-stat-label strong {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .webaim-stat-arrow {
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      opacity: 0.7;
+      margin-left: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .webaim-stat-badge:hover .webaim-stat-arrow {
+      opacity: 1;
+    }
+
     /* Columna Derecha: Contenedor para la Imagen */
     .problem-visual-col {
       display: flex;
@@ -1765,6 +1816,11 @@
                 Las plataformas actuales ignoran los estándares de asistencia: lectores de pantalla que leen en idiomas
                 incorrectos, elementos sin foco visual y la imposibilidad de operar sin un mouse.
               </p>
+              <a href="https://webaim.org/projects/million/" target="_blank" rel="noopener noreferrer" class="webaim-stat-badge" title="Ver Reporte WebAIM Million 2026">
+                <span class="webaim-stat-number">95,9%</span>
+                <span class="webaim-stat-label">de los sitios web tienen fallas de accesibilidad detectables · <strong>WebAIM 2026</strong></span>
+                <span class="webaim-stat-arrow">↗</span>
+              </a>
             </div>
           </div>
 
