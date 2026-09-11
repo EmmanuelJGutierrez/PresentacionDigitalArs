@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DigitalArs · Pitch Deck Cierre Aceleración Tech · Squad-stack</title>
+  <title>DigitalArs · Pitch Deck · Squad-stack</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <style>
     :root {
-      --bg-base: #0A0F1D;
-      --bg-card: rgba(19, 28, 46, 0.72);
-      --bg-card-hover: rgba(28, 41, 66, 0.85);
-      --border-color: rgba(255, 255, 255, 0.1);
-      --border-glow: rgba(56, 189, 248, 0.35);
+      --bg-base: #0B1120;
+      --bg-card: #131E32;
+      --bg-card-hover: #1A2942;
+      --border-color: rgba(255, 255, 255, 0.12);
+      --border-active: #2563EB;
       --text-main: #F8FAFC;
       --text-muted: #94A3B8;
       --primary: #0056D2;
-      --primary-bright: #3B82F6;
+      --primary-bright: #2563EB;
+      --accent-blue: #3B82F6;
       --accent-cyan: #38BDF8;
-      --accent-emerald: #10B981;
-      --accent-amber: #F59E0B;
-      --accent-rose: #EF4444;
+      --accent-emerald: #059669;
+      --accent-amber: #D97706;
+      --accent-rose: #DC2626;
       --glass-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
       --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -29,10 +33,10 @@
 
     [data-theme="light"] {
       --bg-base: #F8FAFC;
-      --bg-card: rgba(255, 255, 255, 0.88);
-      --bg-card-hover: rgba(255, 255, 255, 0.98);
-      --border-color: rgba(15, 23, 42, 0.1);
-      --border-glow: rgba(0, 86, 210, 0.25);
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F1F5F9;
+      --border-color: #E2E8F0;
+      --border-active: #0056D2;
       --text-main: #0F172A;
       --text-muted: #475569;
       --glass-shadow: 0 15px 35px -5px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.06);
@@ -51,11 +55,11 @@
       overflow: hidden;
       height: 100vh;
       width: 100vw;
-      transition: background-color 0.35s ease, color 0.35s ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
       user-select: none;
     }
 
-    /* Canvas Interactivo de Fondo */
+    /* Canvas Interactivo de Fondo (Puntos interactivos autónomos) */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -63,138 +67,140 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 0;
-      opacity: 0.55;
+      z-index: 1;
+      opacity: 0.7;
     }
 
-    /* Barra Superior de Progreso */
+    /* Barra Superior de Progreso Lineal */
     .top-progress-bar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.06);
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
       z-index: 100;
     }
 
     .top-progress-fill {
       height: 100%;
       width: 20%;
-      background: linear-gradient(90deg, #0056D2, #38BDF8);
-      box-shadow: 0 0 14px #38BDF8;
-      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: var(--primary);
+      transition: width 0.3s ease;
     }
 
-    /* Barra de Herramientas Superior */
+    /* Barra Superior */
     .top-bar {
       position: fixed;
-      top: 14px;
-      left: 24px;
-      right: 24px;
+      top: 16px;
+      left: 32px;
+      right: 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 50;
-      pointer-events: auto;
+      pointer-events: none;
     }
 
-    .brand-tag {
+    .top-left-brand-label {
+      pointer-events: auto;
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: var(--bg-card);
-      backdrop-filter: blur(14px);
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--glass-shadow);
     }
 
-    .brand-tag img {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-      border-radius: 6px;
-    }
-
-    .brand-title {
-      font-size: 13px;
+    .eyebrow-badge {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
       font-weight: 700;
-      letter-spacing: 0.5px;
-      color: var(--text-main);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 6px 14px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
     }
 
-    .brand-badge {
-      font-size: 10.5px;
+    .badge-accent-green {
+      color: #10B981;
+      font-weight: 800;
+    }
+
+    .badge-accent-blue {
+      color: #38BDF8;
+      font-weight: 800;
+    }
+
+    .badge-accent-white {
+      color: #F8FAFC;
       font-weight: 600;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent-cyan);
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
+    .badge-dot-separator {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 13px;
+    }
+
+    [data-theme="light"] .eyebrow-badge {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0, 86, 210, 0.25);
+    }
+
+    [data-theme="light"] .badge-accent-white {
+      color: #0F172A;
+    }
+
+    /* Controles a la Derecha */
     .controls-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
+      pointer-events: auto;
     }
 
-    .btn-pill {
+    .btn-rect {
       background: var(--bg-card);
-      backdrop-filter: blur(14px);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 7px 14px;
-      border-radius: 999px;
-      font-size: 12px;
+      padding: 7px 12px;
+      border-radius: 4px;
+      font-size: 11px;
       font-weight: 600;
+      font-family: var(--font-mono);
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 5px;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: var(--glass-shadow);
       outline: none;
+      letter-spacing: 0.5px;
     }
 
-    .btn-pill:hover {
+    .btn-rect:hover {
       background: var(--bg-card-hover);
-      border-color: var(--accent-cyan);
-      transform: translateY(-1px);
+      border-color: var(--border-active);
     }
 
-    .btn-pill:focus-visible {
-      box-shadow: 0 0 0 2px var(--accent-cyan);
+    .timer-rect {
+      color: #34D399;
+      background: rgba(5, 150, 105, 0.1);
+      border-color: rgba(5, 150, 105, 0.3);
     }
 
-    /* Cronómetro 5:00 */
-    .timer-pill {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 700;
-      background: rgba(16, 185, 129, 0.12);
-      border-color: rgba(16, 185, 129, 0.35);
-      color: var(--accent-emerald);
+    .timer-rect.warning {
+      color: #FBBF24;
+      background: rgba(217, 119, 6, 0.15);
+      border-color: rgba(217, 119, 6, 0.4);
     }
 
-    .timer-pill.warning {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: rgba(245, 158, 11, 0.4);
-      color: var(--accent-amber);
-    }
-
-    .timer-pill.danger {
-      background: rgba(239, 68, 68, 0.18);
-      border-color: rgba(239, 68, 68, 0.45);
-      color: var(--accent-rose);
-      animation: pulse 1s infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { opacity: 0.85; }
-      to { opacity: 1; transform: scale(1.02); }
+    .timer-rect.danger {
+      color: #F87171;
+      background: rgba(220, 38, 38, 0.15);
+      border-color: rgba(220, 38, 38, 0.4);
     }
 
     /* Contenedor Principal de Diapositivas */
@@ -205,7 +211,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 70px 48px 85px 48px;
+      padding: 80px 48px 90px 48px;
       z-index: 10;
     }
 
@@ -213,14 +219,13 @@
       position: absolute;
       width: calc(100vw - 96px);
       max-width: 1400px;
-      height: calc(100vh - 165px);
+      height: calc(100vh - 170px);
       max-height: 820px;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(20px) scale(0.985);
-      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-                  visibility 0.45s;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -229,62 +234,44 @@
     .slide.active {
       opacity: 1;
       visibility: visible;
-      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     /* Tipografía y Encabezados */
     .slide-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 700;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: var(--accent-cyan);
-      margin-bottom: 10px;
-    }
-
-    .slide-eyebrow::before {
-      content: "";
+      color: var(--accent-blue);
+      margin-bottom: 12px;
       display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent-cyan);
-      box-shadow: 0 0 10px var(--accent-cyan);
     }
 
     .slide-title {
-      font-size: clamp(2rem, 3.8vw, 3.4rem);
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
       font-weight: 800;
-      line-height: 1.12;
-      margin-bottom: 14px;
-      letter-spacing: -0.8px;
-      background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    [data-theme="light"] .slide-title {
-      background: linear-gradient(135deg, #0F172A 30%, #334155 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
     }
 
     .slide-subtitle {
-      font-size: clamp(1rem, 1.4vw, 1.25rem);
-      color: var(--text-muted);
+      font-size: clamp(1rem, 1.35vw, 1.2rem);
+      color: #ffffffff;
       font-weight: 400;
       max-width: 860px;
-      line-height: 1.5;
-      margin-bottom: 30px;
+      line-height: 1.55;
+      margin-bottom: 24px;
     }
 
-    /* Grillas y Tarjetas */
+    /* Grillas y Tarjetas Rectangulares */
     .cards-grid {
       display: grid;
-      gap: 20px;
+      gap: 16px;
     }
 
     .cards-grid.cols-4 {
@@ -299,53 +286,29 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .glass-card {
+    .rect-card {
       background: var(--bg-card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 26px;
-      box-shadow: var(--glass-shadow);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 4px;
+      padding: 24px;
+      transition: all 0.2s ease;
       position: relative;
-      overflow: hidden;
     }
 
-    .glass-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .glass-card:hover {
+    .rect-card:hover {
       background: var(--bg-card-hover);
-      border-color: var(--border-glow);
-      transform: translateY(-4px);
+      border-color: var(--border-active);
+      transform: translateY(-2px);
     }
 
-    .glass-card:hover::before {
-      opacity: 1;
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 18px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      color: var(--accent-cyan);
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .card-title {
@@ -365,311 +328,1218 @@
       display: inline-block;
       margin-top: 14px;
       font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(0, 86, 210, 0.15);
-      color: var(--primary-bright);
-      border: 1px solid rgba(0, 86, 210, 0.3);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 2px;
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--accent-blue);
+      border: 1px solid rgba(37, 99, 235, 0.25);
     }
 
-    /* Estilos Especiales Diapositiva 1 (Equipo) */
-    .member-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #0056D2, #38BDF8);
-      display: flex;
+    /* ═══════════════════════════════════════════════════════════════════ */
+    /* SLIDE 1: PORTADA & PRESENTACIÓN */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    .hero-presentation-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 44px;
       align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 20px rgba(0, 86, 210, 0.35);
+      width: 100%;
     }
 
-    .member-card {
-      text-align: center;
+    .hero-info-col {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Cabecera del Título con Logo Principal Centrado y Animación de Flotación Limpia */
+    .hero-title-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 36px;
+      width: 100%;
+    }
+
+    .hero-brand-logo-img {
+      height: clamp(170px, 22vw, 240px);
+      width: auto;
+      max-width: 680px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      animation: logoFloatClean 5.5s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+      cursor: pointer;
+    }
+
+    @keyframes logoFloatClean {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.5));
+      }
+
+      50% {
+        transform: translateY(-8px);
+        filter: drop-shadow(0 22px 46px rgba(0, 0, 0, 0.65));
+      }
+    }
+
+    .hero-brand-logo-img:hover {
+      transform: translateY(-10px) scale(1.03);
+      filter: drop-shadow(0 26px 54px rgba(0, 0, 0, 0.75));
+    }
+
+    .hero-tagline {
+      text-align: center;
+      font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    /* Caja del Equipo Más Compacta */
+    .team-section-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 16px 20px;
+    }
+
+    .team-section-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
+    }
+
+    .team-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .member-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
+      animation: chipPulseSequence 8s ease-in-out infinite;
+    }
+
+    .member-chip:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .member-chip:nth-child(2) {
+      animation-delay: 2s;
+    }
+
+    .member-chip:nth-child(3) {
+      animation-delay: 4s;
+    }
+
+    .member-chip:nth-child(4) {
+      animation-delay: 6s;
+    }
+
+    @keyframes chipPulseSequence {
+
+      0%,
+      28%,
+      100% {
+        border-color: var(--border-color);
+        background: rgba(255, 255, 255, 0.035);
+        transform: translateY(0);
+        box-shadow: none;
+      }
+
+      7%,
+      21% {
+        border-color: var(--border-active);
+        background: var(--bg-card-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.28);
+      }
+    }
+
+    [data-theme="light"] .member-chip {
+      background: #F8FAFC;
+    }
+
+    .member-chip:hover {
+      border-color: var(--border-active) !important;
+      background: var(--bg-card-hover) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35) !important;
+    }
+
+    .member-avatar-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 3px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 36px 20px;
-    }
-
-    .member-card .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .track-badge {
+      font-weight: 800;
       font-family: var(--font-mono);
       font-size: 12px;
+      color: white;
+      background: #1E293B;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+    }
+
+    /* Nombres del Equipo Más Proporcionados */
+    .member-name {
+      font-size: 0.92rem;
       font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 999px;
-      letter-spacing: 0.5px;
-    }
-
-    .track-badge.dotnet {
-      background: rgba(139, 92, 246, 0.16);
-      color: #A78BFA;
-      border: 1px solid rgba(167, 139, 250, 0.4);
-    }
-
-    [data-theme="light"] .track-badge.dotnet {
-      background: rgba(124, 58, 237, 0.1);
-      color: #6D28D9;
-      border: 1px solid rgba(109, 40, 217, 0.3);
-    }
-
-    .track-badge.react {
-      background: rgba(56, 189, 248, 0.16);
-      color: #38BDF8;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-    }
-
-    [data-theme="light"] .track-badge.react {
-      background: rgba(2, 132, 199, 0.1);
-      color: #0284C7;
-      border: 1px solid rgba(2, 132, 199, 0.3);
-    }
-
-    .team-highlight-box {
-      margin-top: 24px;
-      background: rgba(0, 86, 210, 0.08);
-      border: 1px solid rgba(0, 86, 210, 0.2);
-      border-radius: 14px;
-      padding: 14px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .team-highlight-text {
-      font-size: 13.5px;
       color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      letter-spacing: -0.2px;
     }
 
-    /* Estilos Diapositiva 3 (La Solución - Maqueta interactiva) */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    /* SLIDE 1: PREVIEW VISUAL MINIMALISTA & IMPACTANTE */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    .hero-visual-col {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-showcase-stage {
+      position: relative;
+      width: 100%;
+      max-width: 550px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Marco Minimalista de la Imagen con Sutil Resplandor y Brillo Empresarial */
+    .hero-image-card {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      background: #0B1120;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(37, 99, 235, 0.16);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: heroCardFloatMinimal 6.5s ease-in-out infinite;
+    }
+
+    @keyframes heroCardFloatMinimal {
+
+      0%,
+      100% {
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(37, 99, 235, 0.14);
+        border-color: rgba(59, 130, 246, 0.35);
+        transform: translateY(0);
+      }
+
+      50% {
+        box-shadow: 0 26px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(37, 99, 235, 0.28);
+        border-color: rgba(59, 130, 246, 0.65);
+        transform: translateY(-6px);
+      }
+    }
+
+    /* Brillo Sutil Diagonal (Sheen Empresarial) */
+    .hero-image-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+          transparent 0%,
+          transparent 40%,
+          rgba(255, 255, 255, 0.08) 48%,
+          rgba(255, 255, 255, 0.16) 50%,
+          rgba(255, 255, 255, 0.08) 52%,
+          transparent 60%,
+          transparent 100%);
+      transform: translateX(-100%);
+      animation: corporateSheen 7s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @keyframes corporateSheen {
+
+      0%,
+      30% {
+        transform: translateX(-100%);
+      }
+
+      55%,
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .hero-image-card:hover {
+      border-color: rgba(59, 130, 246, 0.85);
+      transform: translateY(-8px) scale(1.015);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 55px rgba(37, 99, 235, 0.38);
+    }
+
+    .hero-showcase-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .hero-image-card:hover .hero-showcase-img {
+      transform: scale(1.025);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════ */
+    /* SLIDE 2: EL PROBLEMA (Layout 2 Columnas & Selección Secuencial) */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    .problem-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: center;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Card Unificada de Problemas a la Izquierda */
+    .problem-unified-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+      position: relative;
+      z-index: 2;
+    }
+
+    .problem-item-row {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    [data-theme="light"] .problem-item-row {
+      background: #F8FAFC;
+    }
+
+    .problem-item-row:hover {
+      background: rgba(37, 99, 235, 0.08);
+      border-color: rgba(59, 130, 246, 0.7);
+      transform: translateX(6px);
+      box-shadow: 0 10px 28px -4px rgba(0, 0, 0, 0.5), 0 0 24px rgba(37, 99, 235, 0.25);
+    }
+
+    .problem-num-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 3px;
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .problem-item-row:hover .problem-num-badge {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary-bright);
+      box-shadow: 0 0 14px rgba(37, 99, 235, 0.7);
+      transform: scale(1.06);
+    }
+
+    .problem-item-content {
+      flex: 1;
+    }
+
+    .problem-item-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .problem-item-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Columna Derecha: Contenedor para la Imagen */
+    .problem-visual-col {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .problem-image-card {
+      width: 100%;
+      max-width: 540px;
+      height: 420px;
+      background: #0B1120;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+      position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .problem-image-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-active);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(37, 99, 235, 0.25);
+    }
+
+    .problem-img-element {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .problem-image-card:hover .problem-img-element {
+      transform: scale(1.03);
+    }
+
+    /* Animación de Entrada Fluida para la Diapositiva 2 */
+    .slide[data-slide="2"].active .problem-unified-card {
+      animation: slideFadeUp 0.45s 0.05s ease both;
+    }
+
+    .slide[data-slide="2"].active .problem-visual-col {
+      animation: slideFadeUp 0.5s 0.12s ease both;
+    }
+
+    @keyframes slideFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════ */
+    /* SLIDE 3: LA SOLUCIÓN — ESTILOS COMPACTOS Y ELEGANTE */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    .slide[data-slide="3"] .slide-title {
+      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+      margin-bottom: 4px;
+    }
+
+    .slide[data-slide="3"] .slide-subtitle {
+      font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
     .solution-layout {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 30px;
+      grid-template-columns: 0.82fr 1.38fr;
+      gap: 22px;
       align-items: center;
     }
 
     .feature-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 6px;
     }
 
     .feature-item {
       display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 18px;
-      border-radius: 14px;
+      align-items: center;
+      gap: 12px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      transition: all 0.25s ease;
-    }
-
-    .feature-item:hover {
-      border-color: var(--accent-cyan);
-      background: var(--bg-card-hover);
-      transform: translateX(4px);
-    }
-
-    .feature-num {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent-cyan);
-      background: rgba(56, 189, 248, 0.12);
-      padding: 4px 8px;
-      border-radius: 8px;
-    }
-
-    .feature-content h4 {
-      font-size: 14.5px;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--text-main);
-    }
-
-    .feature-content p {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      line-height: 1.45;
-    }
-
-    /* Maqueta Visual Interactiva de la App */
-    .mockup-frame {
-      background: #020712;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .mockup-header {
-      background: #0B132B;
-      padding: 10px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .mockup-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .mockup-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
-    .mockup-dot.red { background: #FF5F56; }
-    .mockup-dot.yellow { background: #FFBD2E; }
-    .mockup-dot.green { background: #27C93F; }
-
-    .mockup-url {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: #94A3B8;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 3px 14px;
-      border-radius: 6px;
-    }
-
-    .mockup-body {
-      padding: 22px;
-      background: #0A0F1D;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .mockup-balance-card {
-      background: linear-gradient(135deg, #0056D2, #02122C);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 16px;
-      padding: 20px;
-      color: white;
+      border-radius: 4px;
+      padding: 8px 13px;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
 
-    .mockup-actions-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+    .feature-item:hover,
+    .feature-item.active {
+      border-color: var(--accent-cyan);
+      background: var(--bg-card-hover);
+      box-shadow: 0 8px 20px -4px rgba(0, 86, 210, 0.25), 0 0 0 1px rgba(56, 189, 248, 0.3);
+      transform: translateX(6px);
     }
 
-    .mockup-action-btn {
-      background: #131C2E;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 12px 8px;
-      text-align: center;
-      color: white;
+    .feature-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.22s ease;
+    }
+
+    .feature-item.active .feature-num {
+      background: var(--accent-cyan);
+      color: #0A0F1D;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    .feature-title {
+      font-size: 0.90rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0;
+      letter-spacing: -0.1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .feature-item.active .feature-title {
+      color: white;
+    }
+
+    /* Escenario Visual de Componentes Reales Estilo Enterprise UI */
+    .component-stage {
+      background: linear-gradient(145deg, rgba(12, 19, 36, 0.95) 0%, rgba(8, 12, 24, 0.98) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.85), 0 0 35px -5px rgba(37, 99, 235, 0.25);
+      overflow: hidden;
       display: flex;
       flex-direction: column;
+      width: 100%;
+      position: relative;
+      cursor: zoom-in;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .component-stage:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 28px 70px -10px rgba(0, 0, 0, 0.95), 0 0 45px -5px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Brillo Sutil Diagonal (Sheen Empresarial para el Escenario) */
+    .component-stage::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+          transparent 0%,
+          transparent 42%,
+          rgba(255, 255, 255, 0.03) 48%,
+          rgba(255, 255, 255, 0.07) 50%,
+          rgba(255, 255, 255, 0.03) 52%,
+          transparent 58%,
+          transparent 100%);
+      transform: translateX(-100%);
+      animation: stageCorporateSheen 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes stageCorporateSheen {
+
+      0%,
+      40% {
+        transform: translateX(-100%);
+      }
+
+      65%,
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .stage-header {
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.96) 0%, rgba(20, 30, 55, 0.88) 100%);
+      padding: 9px 16px;
+      display: flex;
       align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.18);
+      flex-shrink: 0;
+      z-index: 5;
+    }
+
+    .stage-window-dots {
+      display: flex;
       gap: 6px;
     }
 
-    /* Estilos Diapositiva 5 (Cierre & Visión) */
-    .closing-quote-card {
-      background: linear-gradient(135deg, rgba(0, 86, 210, 0.15), rgba(56, 189, 248, 0.08));
+    .stage-window-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .stage-window-dots span:nth-child(1) {
+      background: #EF4444;
+    }
+
+    .stage-window-dots span:nth-child(2) {
+      background: #F59E0B;
+    }
+
+    .stage-window-dots span:nth-child(3) {
+      background: #10B981;
+    }
+
+    .stage-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      letter-spacing: 0.3px;
+    }
+
+    .stage-viewport {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0B1120;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .stage-view-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985);
+      transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.28s;
+    }
+
+    .stage-view-wrapper.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+
+    .stage-view-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .stage-zoom-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(10, 15, 29, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 20px;
-      padding: 34px 40px;
-      margin-top: 24px;
+      color: #E2E8F0;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    .component-stage:hover .stage-zoom-badge {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════ */
+    /* LIGHTBOX MODAL — VISUALIZACIÓN EN PANTALLA COMPLETA */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .image-lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 9, 20, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      cursor: pointer;
+    }
+
+    .lightbox-container {
+      position: relative;
+      z-index: 10;
+      max-width: 94vw;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 8px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 102, 255, 0.3);
+      overflow: hidden;
+      transform: scale(0.92);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .image-lightbox.active .lightbox-container {
+      transform: scale(1);
+    }
+
+    .lightbox-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.98) 0%, rgba(20, 30, 55, 0.9) 100%);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .lightbox-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .lightbox-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #CBD5E1;
+      font-size: 14px;
+      font-weight: 700;
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lightbox-close-btn:hover {
+      background: #EF4444;
+      color: white;
+      border-color: #EF4444;
+    }
+
+    .lightbox-body {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      background: #0B1120;
+      overflow: hidden;
+    }
+
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 4px;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════ */
+    /* SLIDE 4: PROPUESTA DE VALOR (Layout 2 Columnas & Showcase Imagen 4) */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    .slide[data-slide="4"] .slide-title {
+      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+      margin-bottom: 4px;
+    }
+
+    .slide[data-slide="4"] .slide-subtitle {
+      font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+      margin-bottom: 16px;
+      line-height: 1.45;
+    }
+
+    .value-prop-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .value-cards-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .value-card-row {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.85) 0%, rgba(10, 15, 29, 0.92) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-left: 3px solid rgba(56, 189, 248, 0.4);
+      border-radius: 6px;
+      padding: 12px 18px;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+
+    .value-card-row:hover {
+      background: linear-gradient(145deg, rgba(20, 32, 60, 0.92) 0%, rgba(12, 20, 40, 0.98) 100%);
+      border-color: rgba(56, 189, 248, 0.6);
+      border-left-color: var(--accent-cyan);
+      transform: translateX(6px);
+      box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.6), 0 0 25px rgba(37, 99, 235, 0.25);
+    }
+
+    .value-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .value-card-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .value-card-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 1px 6px;
+      border-radius: 2px;
+    }
+
+    .value-card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0;
+      letter-spacing: -0.2px;
+    }
+
+    .value-card-badge {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: rgba(37, 99, 235, 0.15);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .value-card-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* Columna Derecha: Showcase de Imagen 4 */
+    .value-visual-col {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .value-image-card {
+      width: 100%;
+      max-width: 500px;
+      height: 400px;
+      background: #0B1120;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.85), 0 0 35px rgba(37, 99, 235, 0.2);
+      position: relative;
+      cursor: zoom-in;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .value-image-card:hover {
+      transform: translateY(-3px) scale(1.015);
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.95), 0 0 45px rgba(37, 99, 235, 0.35);
+    }
+
+    /* Brillo Sutil Diagonal (Sheen Empresarial para Slide 4) */
+    .value-image-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+          transparent 0%,
+          transparent 40%,
+          rgba(255, 255, 255, 0.04) 48%,
+          rgba(255, 255, 255, 0.09) 50%,
+          rgba(255, 255, 255, 0.04) 52%,
+          transparent 60%,
+          transparent 100%);
+      transform: translateX(-100%);
+      animation: corporateSheenSlide4 7.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    @keyframes corporateSheenSlide4 {
+
+      0%,
+      35% {
+        transform: translateX(-100%);
+      }
+
+      60%,
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .value-img-element {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .value-image-card:hover .value-img-element {
+      transform: scale(1.025);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════ */
+    /* SLIDE 5: CIERRE Y VISIÓN — ESTÉTICA DARK FINTECH ENTERPRISE EXPANDIDA */
+    /* ═══════════════════════════════════════════════════════════════════ */
+    .slide[data-slide="5"] {
+      justify-content: flex-start;
+      padding-top: 80px;
+    }
+
+    .slide[data-slide="5"] .slide-title {
+      font-size: clamp(2.4rem, 3.6vw, 3rem);
+      margin-bottom: 8px;
+    }
+
+    .slide[data-slide="5"] .slide-subtitle {
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .vision-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 20px;
+    }
+
+    .vision-card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.92) 0%, rgba(10, 15, 29, 0.98) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 22px 26px;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(37, 99, 235, 0.15);
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.28s ease;
+    }
+
+    .vision-card:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.9), 0 0 40px rgba(37, 99, 235, 0.28);
+      transform: translateY(-2px);
+    }
+
+    .vision-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+
+    .vision-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+      letter-spacing: -0.2px;
+    }
+
+    .vision-card-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 3px 10px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    .vision-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      font-size: 14.5px;
+      color: #E2E8F0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .vision-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+
+    .vision-bullet {
+      color: var(--accent-cyan);
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .vision-community-desc {
+      font-size: 15px;
+      color: #E2E8F0;
+      line-height: 1.55;
+      margin: 0 0 14px 0;
+    }
+
+    .vision-badges-wrap {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .vision-pill-badge {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 3px;
+      border: 1px solid;
+    }
+
+    .vision-pill-badge.cyan {
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .vision-pill-badge.green {
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    .closing-quote-card {
+      background: linear-gradient(145deg, rgba(12, 19, 36, 0.95) 0%, rgba(8, 12, 24, 0.98) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-left: 5px solid var(--accent-cyan);
+      border-radius: 8px;
+      padding: 20px 28px;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.85), 0 0 35px rgba(37, 99, 235, 0.18);
       position: relative;
     }
 
     .closing-quote {
-      font-size: clamp(1.15rem, 1.7vw, 1.45rem);
-      font-weight: 600;
+      font-size: clamp(1rem, 1.3vw, 1.18rem);
+      font-weight: 500;
       line-height: 1.55;
-      color: var(--text-main);
+      color: #F8FAFC;
       font-style: italic;
+      margin: 0;
     }
 
     .closing-author {
-      margin-top: 18px;
-      font-size: 14px;
+      margin-top: 10px;
+      font-size: 12px;
       font-weight: 700;
+      font-family: var(--font-mono);
       color: var(--accent-cyan);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      letter-spacing: 0.8px;
     }
 
     /* Barra de Navegación Inferior */
     .bottom-bar {
       position: fixed;
-      bottom: 18px;
-      left: 24px;
-      right: 24px;
-      display: flex;
-      justify-content: space-between;
+      bottom: 16px;
+      left: 32px;
+      right: 32px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
       z-index: 50;
-      pointer-events: auto;
+      pointer-events: none;
+    }
+
+    .bottom-bar-left {
+      /* Espaciador izquierdo */
     }
 
     .slide-nav-pills {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: var(--bg-card);
-      backdrop-filter: blur(14px);
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--glass-shadow);
+      gap: 4px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 4px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      pointer-events: auto;
+      justify-self: center;
     }
 
     .nav-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+      background: transparent;
+      border: 1px solid transparent;
       cursor: pointer;
-      transition: all 0.25s ease;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
       outline: none;
     }
 
-    [data-theme="light"] .nav-dot {
-      background: rgba(15, 23, 42, 0.2);
-    }
-
     .nav-dot.active {
-      background: var(--accent-cyan);
-      box-shadow: 0 0 10px var(--accent-cyan);
-      width: 28px;
-      border-radius: 999px;
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
     }
 
     .nav-dot:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
     }
 
     .keyboard-hint {
@@ -679,35 +1549,38 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      pointer-events: auto;
+      justify-self: end;
     }
 
     .kbd-key {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      padding: 2px 7px;
-      border-radius: 5px;
+      padding: 2px 6px;
+      border-radius: 2px;
       color: var(--text-main);
       font-weight: 600;
     }
 
-    /* Panel de Notas del Orador (Speaker Notes Drawer) */
+    /* Panel de Notas del Orador */
     .speaker-drawer {
       position: fixed;
-      bottom: -320px;
+      bottom: -340px;
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
-      max-width: 900px;
+      max-width: 920px;
       height: 280px;
-      background: #0B132B;
-      border: 1px solid var(--accent-cyan);
-      border-radius: 20px 20px 0 0;
-      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.85);
+      background: #0B1120;
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.7);
       z-index: 200;
-      transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: bottom 0.3s ease;
       display: flex;
       flex-direction: column;
-      padding: 20px 26px;
+      padding: 20px 24px;
       color: #F8FAFC;
     }
 
@@ -720,17 +1593,15 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 8px;
     }
 
     .drawer-title {
       font-size: 13px;
       font-weight: 700;
-      color: var(--accent-cyan);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-family: var(--font-mono);
+      color: var(--accent-blue);
     }
 
     .drawer-content {
@@ -740,21 +1611,27 @@
       overflow-y: auto;
     }
 
-    /* Modo Impresión (Ctrl+P / Salvar PDF 16:9) */
     @media print {
       body {
         overflow: visible !important;
         background: white !important;
         color: black !important;
       }
-      #bg-canvas, .top-bar, .bottom-bar, .top-progress-bar, .speaker-drawer {
+
+      #bg-canvas,
+      .top-bar,
+      .bottom-bar,
+      .top-progress-bar,
+      .speaker-drawer {
         display: none !important;
       }
+
       .deck-container {
         padding: 0 !important;
         height: auto !important;
         display: block !important;
       }
+
       .slide {
         position: relative !important;
         opacity: 1 !important;
@@ -771,8 +1648,9 @@
     }
   </style>
 </head>
+
 <body data-theme="dark">
-  <!-- Canvas Animado de Fondo -->
+  <!-- Canvas Interactivo de Fondo (Puntos interactivos) -->
   <canvas id="bg-canvas"></canvas>
 
   <!-- Barra de Progreso Superior -->
@@ -780,33 +1658,24 @@
     <div class="top-progress-fill" id="progress-fill"></div>
   </div>
 
-  <!-- Barra de Herramientas Superior -->
+  <!-- Barra Superior -->
   <header class="top-bar">
-    <div class="brand-tag">
-      <img src="logo.png" alt="DigitalArs Logo" onerror="this.style.display='none'">
-      <span class="brand-title">DigitalArs</span>
-      <span class="brand-badge">Equipo 1 · Cierre Tech</span>
+    <!-- Identificador Superior Izquierdo Tricolor con Track (Verde, Azul, Blanco) -->
+    <div class="top-left-brand-label">
+      <span class="eyebrow-badge">
+        <span class="badge-accent-green">ACELERACIÓN</span>
+        <span class="badge-accent-blue">TECH</span>
+        <span class="badge-dot-separator">·</span>
+        <span class="badge-accent-white">PRESENTACIÓN FINAL</span>
+        <span class="badge-dot-separator">·</span>
+        <span class="badge-accent-blue">.NET / REACT</span>
+      </span>
     </div>
 
+    <!-- Controles a la Derecha: Solo Cronómetro -->
     <div class="controls-group">
-      <!-- Cronómetro de Ensayo 5:00 -->
-      <button class="btn-pill timer-pill" id="btn-timer" title="Hacé clic para pausar/reanudar el tiempo">
-        ⏱️ <span id="timer-display">05:00</span>
-      </button>
-
-      <!-- Botón Notas del Orador -->
-      <button class="btn-pill" id="btn-notes" title="Atajo: Tecla N">
-        📝 <span id="notes-label">Notas</span>
-      </button>
-
-      <!-- Botón Modo Claro/Oscuro -->
-      <button class="btn-pill" id="btn-theme" title="Alternar Modo Oscuro / Claro">
-        🌓
-      </button>
-
-      <!-- Botón Pantalla Completa -->
-      <button class="btn-pill" id="btn-fullscreen" title="Atajo: Tecla F o F11">
-        ⛶
+      <button class="btn-rect timer-rect" id="btn-timer" title="Hacé clic para pausar/reanudar el tiempo">
+        <span id="timer-display">05:00</span>
       </button>
     </div>
   </header>
@@ -815,47 +1684,62 @@
   <main class="deck-container" id="deck">
 
     <!-- ═══════════════════════════════════════════════════════════════════ -->
-    <!-- SLIDE 1: PRESENTACIÓN DEL EQUIPO (30 - 45s) -->
+    <!-- SLIDE 1: PRESENTACIÓN DEL EQUIPO & PROYECTO (30 - 45s) -->
     <!-- ═══════════════════════════════════════════════════════════════════ -->
     <section class="slide active" data-slide="1">
-      <div class="slide-eyebrow">Equipo 1 · Squad-stack</div>
-      <h1 class="slide-title">DigitalArs · Billetera Digital</h1>
-      <p class="slide-subtitle">
-        Desarrollo integral y colaborativo de una solución fintech moderna, accesible y de grado bancario.
-      </p>
+      <div class="hero-presentation-grid">
 
-      <div class="cards-grid cols-4">
-        <div class="glass-card member-card">
-          <div class="member-avatar">EG</div>
-          <h3 class="card-title">Emmanuel Gutiérrez</h3>
-          <span class="track-badge dotnet">Track .NET</span>
+        <!-- Columna Izquierda: Identidad, Tracks y Equipo -->
+        <div class="hero-info-col">
+          <!-- Logo Principal Centrado y de Gran Tamaño -->
+          <div class="hero-title-row">
+            <img src="iconoPrincipal.png" alt="DigitalArs" class="hero-brand-logo-img" onerror="this.src='logo.png'">
+          </div>
+
+
+
+          <!-- Caja del Equipo con Nombres Más Grandes y sin los tracks individuales -->
+          <div class="team-section-box">
+            <div class="team-section-title">EQUIPO DE DESARROLLO</div>
+
+            <div class="team-chips-grid">
+              <!-- Emmanuel -->
+              <div class="member-chip">
+                <div class="member-avatar-box">EG</div>
+                <div class="member-name">Emmanuel Gutiérrez</div>
+              </div>
+
+              <!-- Máximo -->
+              <div class="member-chip">
+                <div class="member-avatar-box">MP</div>
+                <div class="member-name">Maximo Porretti</div>
+              </div>
+
+              <!-- Micaela -->
+              <div class="member-chip">
+                <div class="member-avatar-box">MM</div>
+                <div class="member-name">Micaela Mulato</div>
+              </div>
+
+              <!-- Andrés -->
+              <div class="member-chip">
+                <div class="member-avatar-box">AC</div>
+                <div class="member-name">Andrés Carrasco</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card member-card">
-          <div class="member-avatar">AC</div>
-          <h3 class="card-title">Andrés Carrasco</h3>
-          <span class="track-badge dotnet">Track .NET</span>
+        <!-- Columna Derecha: Showcase Visual Minimalista -->
+        <div class="hero-visual-col">
+          <div class="hero-showcase-stage">
+            <div class="hero-image-card">
+              <img src="app-preview.jpg" alt="DigitalArs App Demo" class="hero-showcase-img"
+                onerror="this.src='hero.jpg'">
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card member-card">
-          <div class="member-avatar">MM</div>
-          <h3 class="card-title">Micaela Mulato</h3>
-          <span class="track-badge react">Track React</span>
-        </div>
-
-        <div class="glass-card member-card">
-          <div class="member-avatar">MP</div>
-          <h3 class="card-title">Máximo Porretti</h3>
-          <span class="track-badge react">Track React</span>
-        </div>
-      </div>
-
-      <div class="team-highlight-box">
-        <div class="team-highlight-text">
-          <span style="font-size: 18px;">⚡</span>
-          <span><strong>Metodología y Sinergia:</strong> Trabajo ágil Full-Stack en equipo, sprints continuos, ramas protegidas en GitHub, revisiones cruzadas de código y validación integral de extremo a extremo.</span>
-        </div>
-        <span class="brand-badge" style="white-space: nowrap;">100% Sincronizados</span>
       </div>
     </section>
 
@@ -863,38 +1747,60 @@
     <!-- SLIDE 2: EL PROBLEMA (45 - 60s) -->
     <!-- ═══════════════════════════════════════════════════════════════════ -->
     <section class="slide" data-slide="2">
-      <div class="slide-eyebrow">Diagnóstico & Contexto</div>
-      <h2 class="slide-title">El Desafío: Exclusión y Fricción</h2>
+      <h2 class="slide-title">Exclusión y Fricción</h2>
       <p class="slide-subtitle">
-        La digitalización financiera acelerada dejó atrás a millones de usuarios que hoy enfrentan barreras cotidianas para manejar su propio dinero.
+        La digitalización financiera acelerada dejó atrás a millones de usuarios que hoy enfrentan barreras cotidianas
+        para manejar su propio dinero.
       </p>
 
-      <div class="cards-grid cols-3">
-        <div class="glass-card">
-          <div class="card-icon">♿</div>
-          <h3 class="card-title">Brecha de Accesibilidad Universal</h3>
-          <p class="card-desc">
-            Las plataformas actuales ignoran los estándares de asistencia: lectores de pantalla que leen en idiomas incorrectos, elementos sin foco visual y la imposibilidad de operar sin un mouse.
-          </p>
-          <span class="card-badge">Exclusión Real</span>
+      <div class="problem-layout">
+        <!-- Columna Izquierda: Card Unificada de Problemas -->
+        <div class="problem-unified-card">
+          <!-- Problema 1: Accesibilidad -->
+          <div class="problem-item-row">
+            <div class="problem-num-badge">01</div>
+            <div class="problem-item-content">
+              <h3 class="problem-item-title">Brecha de Accesibilidad Universal</h3>
+              <p class="problem-item-desc">
+                Las plataformas actuales ignoran los estándares de asistencia: lectores de pantalla que leen en idiomas
+                incorrectos, elementos sin foco visual y la imposibilidad de operar sin un mouse.
+              </p>
+            </div>
+          </div>
+
+          <!-- Problema 2: Responsive -->
+          <div class="problem-item-row">
+            <div class="problem-num-badge">02</div>
+            <div class="problem-item-content">
+              <h3 class="problem-item-title">Inconsistencia Mobile vs. Desktop</h3>
+              <p class="problem-item-desc">
+                Experiencias fracturadas donde las apps móviles recortan funciones de la versión web, o donde las webs
+                de
+                escritorio no están optimizadas para pantallas táctiles ni para dispositivos de asistencia.
+              </p>
+            </div>
+          </div>
+
+          <!-- Problema 3: Seguridad y Confianza -->
+          <div class="problem-item-row">
+            <div class="problem-num-badge">03</div>
+            <div class="problem-item-content">
+              <h3 class="problem-item-title">Complejidad, Errores y Opacidad</h3>
+              <p class="problem-item-desc">
+                Transferir dinero genera ansiedad por falta de confirmación de destinatario previa, y los instrumentos
+                de
+                ahorro como plazos fijos presentan cálculos confusos y sin transparencia.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card">
-          <div class="card-icon">📱</div>
-          <h3 class="card-title">Inconsistencia Mobile vs. Desktop</h3>
-          <p class="card-desc">
-            Experiencias fracturadas donde las apps móviles recortan funciones de la versión web, o donde las webs de escritorio no están optimizadas para pantallas táctiles ni para dispositivos de asistencia.
-          </p>
-          <span class="card-badge">Fragmentación</span>
-        </div>
-
-        <div class="glass-card">
-          <div class="card-icon">⚠️</div>
-          <h3 class="card-title">Complejidad, Errores y Opacidad</h3>
-          <p class="card-desc">
-            Transferir dinero genera ansiedad por falta de confirmación de destinatario previa, y los instrumentos de ahorro como plazos fijos presentan cálculos confusos y sin transparencia.
-          </p>
-          <span class="card-badge">Falta de Confianza</span>
+        <!-- Columna Derecha: Imagen del Problema -->
+        <div class="problem-visual-col" id="problem-image-slot">
+          <div class="problem-image-card">
+            <img src="imagen2.png" alt="Frustración de usuario con fallos y errores en billeteras digitales"
+              class="problem-img-element" onerror="this.src='app-preview.jpg'">
+          </div>
         </div>
       </div>
     </section>
@@ -903,94 +1809,90 @@
     <!-- SLIDE 3: LA SOLUCIÓN — DIGITALARS (90s) -->
     <!-- ═══════════════════════════════════════════════════════════════════ -->
     <section class="slide" data-slide="3">
-      <div class="slide-eyebrow">Nuestra Propuesta</div>
       <h2 class="slide-title">DigitalArs: Finanzas Simples y Claras</h2>
       <p class="slide-subtitle">
-        Una plataforma fintech integral diseñada desde el primer día para funcionar con la misma fluidez en celular o en computadora de escritorio.
+        Una plataforma fintech integral diseñada desde el primer día para funcionar con la misma fluidez en celular o en
+        computadora de escritorio.
       </p>
 
       <div class="solution-layout">
-        <!-- Lista de Funcionalidades -->
-        <div class="feature-list">
-          <div class="feature-item">
+        <!-- Lista de Funcionalidades con Selección Interactiva Compacta -->
+        <div class="feature-list" id="feature-list">
+          <div class="feature-item active" data-feature="1" tabindex="0" role="button" aria-label="Ver Dashboard">
             <span class="feature-num">01</span>
-            <div class="feature-content">
-              <h4>Dashboard Financiero Centralizado</h4>
-              <p>Visibilidad clara de saldo real, CVU de 22 dígitos con copia rápida y accesos directos de un toque.</p>
-            </div>
+            <span class="feature-title">Dashboard Financiero Centralizado</span>
           </div>
 
-          <div class="feature-item">
+          <div class="feature-item" data-feature="2" tabindex="0" role="button" aria-label="Ver Transferencias">
             <span class="feature-num">02</span>
-            <div class="feature-content">
-              <h4>Transferencias con Validación en Vivo</h4>
-              <p>Búsqueda predictiva de destinatario por Alias o CVU antes de enviar, evitando errores irreversibles.</p>
-            </div>
+            <span class="feature-title">Transferencias con Validación en Vivo</span>
           </div>
 
-          <div class="feature-item">
+          <div class="feature-item" data-feature="3" tabindex="0" role="button" aria-label="Ver Plazos Fijos">
             <span class="feature-num">03</span>
-            <div class="feature-content">
-              <h4>Plazos Fijos & Inversiones Transparentes</h4>
-              <p>Simulador interactivo con cálculo en tiempo real de intereses devengados según el plazo elegido.</p>
-            </div>
+            <span class="feature-title">Plazos Fijos & Inversiones Transparentes</span>
           </div>
 
-          <div class="feature-item">
+          <div class="feature-item" data-feature="4" tabindex="0" role="button" aria-label="Ver Tarjetas Virtuales">
             <span class="feature-num">04</span>
-            <div class="feature-content">
-              <h4>Tarjetas Virtuales Seguras</h4>
-              <p>Visualización 3D con copia de números, revelado seguro de CVV y conmutador de congelamiento instantáneo.</p>
-            </div>
+            <span class="feature-title">Tarjetas Virtuales Seguras</span>
+          </div>
+
+          <div class="feature-item" data-feature="5" tabindex="0" role="button" aria-label="Ver Pago de Servicios">
+            <span class="feature-num">05</span>
+            <span class="feature-title">Pago de Servicios & Facturas</span>
+          </div>
+
+          <div class="feature-item" data-feature="6" tabindex="0" role="button" aria-label="Ver Billetera de Reservas">
+            <span class="feature-num">06</span>
+            <span class="feature-title">Billetera de Reservas & Ahorro</span>
+          </div>
+
+          <div class="feature-item" data-feature="7" tabindex="0" role="button" aria-label="Ver Historial">
+            <span class="feature-num">07</span>
+            <span class="feature-title">Historial de Movimientos & Comprobantes</span>
           </div>
         </div>
 
-        <!-- Maqueta Visual de la Aplicación -->
-        <div class="mockup-frame">
-          <div class="mockup-header">
-            <div class="mockup-dots">
-              <span class="mockup-dot red"></span>
-              <span class="mockup-dot yellow"></span>
-              <span class="mockup-dot green"></span>
+        <!-- Escenario de Componentes Reales de DigitalArs -->
+        <div class="component-stage" id="component-stage" title="Hacé clic para ampliar la captura">
+          <div class="stage-header">
+            <div class="stage-window-dots">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
-            <span class="mockup-url">digitalars.app/dashboard</span>
-            <span style="font-size: 11px; color: #10B981; font-weight: 600;">● Online</span>
+            <div class="stage-tag">
+              <span id="stage-title">Dashboard · Saldo y Accesos Rápidos</span>
+            </div>
           </div>
 
-          <div class="mockup-body">
-            <div class="mockup-balance-card">
-              <div style="font-size: 12px; opacity: 0.85; margin-bottom: 4px;">Saldo disponible en cuenta</div>
-              <div style="font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">$ 1.450.800,50</div>
-              <div style="font-size: 11px; margin-top: 8px; font-family: var(--font-mono); opacity: 0.9;">
-                CVU: 0000003100010000000012 · ALIAS: DIGITAL.ARS.SQUAD
-              </div>
+          <div class="stage-viewport" id="stage-viewport">
+            <div class="stage-view-wrapper active" data-view="1">
+              <img src="screenshots/dashboard.png" class="stage-view-img" alt="Componente Saldo y Accesos Rápidos" />
+            </div>
+            <div class="stage-view-wrapper" data-view="2">
+              <img src="screenshots/transfer.png" class="stage-view-img" alt="Componente Transferencia Verificada" />
+            </div>
+            <div class="stage-view-wrapper" data-view="3">
+              <img src="screenshots/investments.png" class="stage-view-img" alt="Componente Simulador Plazo Fijo" />
+            </div>
+            <div class="stage-view-wrapper" data-view="4">
+              <img src="screenshots/cards.png" class="stage-view-img" alt="Componente Tarjeta Virtual DigitalArs" />
+            </div>
+            <div class="stage-view-wrapper" data-view="5">
+              <img src="screenshots/servicios.png" class="stage-view-img" alt="Pago de Servicios y Facturas" />
+            </div>
+            <div class="stage-view-wrapper" data-view="6">
+              <img src="screenshots/reservas.png" class="stage-view-img" alt="Reservas y Ahorro" />
+            </div>
+            <div class="stage-view-wrapper" data-view="7">
+              <img src="screenshots/historial.png" class="stage-view-img" alt="Historial de Movimientos " />
             </div>
 
-            <div class="mockup-actions-grid">
-              <div class="mockup-action-btn">
-                <span style="font-size: 18px;">💸</span>
-                <span>Transferir</span>
-              </div>
-              <div class="mockup-action-btn">
-                <span style="font-size: 18px;">📥</span>
-                <span>Depositar</span>
-              </div>
-              <div class="mockup-action-btn">
-                <span style="font-size: 18px;">📈</span>
-                <span>Invertir</span>
-              </div>
-              <div class="mockup-action-btn">
-                <span style="font-size: 18px;">💳</span>
-                <span>Tarjetas</span>
-              </div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div style="font-size: 12.5px; font-weight: 600; color: white;">Transferencia Acreditada</div>
-                <div style="font-size: 11px; color: #94A3B8;">Comprobante PDF bancario disponible</div>
-              </div>
-              <span style="color: #10B981; font-weight: 700; font-size: 13px;">+ $ 150.000,00</span>
+            <div class="stage-zoom-badge">
+              <span>🔍</span>
+              <span>Clic para ampliar</span>
             </div>
           </div>
         </div>
@@ -1001,83 +1903,126 @@
     <!-- SLIDE 4: PROPUESTA DE VALOR (60s) -->
     <!-- ═══════════════════════════════════════════════════════════════════ -->
     <section class="slide" data-slide="4">
-      <div class="slide-eyebrow">Diferenciación & Calidad</div>
       <h2 class="slide-title">¿Qué Hace Única a Nuestra Solución?</h2>
       <p class="slide-subtitle">
-        La combinación de rigor contable y arquitectura bancaria de grado empresarial con una experiencia humana accesible para todos.
+        La combinación de rigor contable y arquitectura bancaria de grado empresarial con una experiencia humana
+        accesible para todos.
       </p>
 
-      <div class="cards-grid cols-3">
-        <div class="glass-card">
-          <div class="card-icon" style="background: rgba(16, 185, 129, 0.1); color: #10B981; border-color: rgba(16, 185, 129, 0.3);">♿</div>
-          <h3 class="card-title">Accesibilidad Universal Real</h3>
-          <p class="card-desc">
-            Sincronización del atributo <code>lang</code> para pronunciación natural en TalkBack y VoiceOver, soporte completo de navegación por teclado y tokens de alto contraste adaptativos (Modo Oscuro / Claro).
-          </p>
-          <span class="card-badge" style="background: rgba(16, 185, 129, 0.15); color: #10B981; border-color: rgba(16, 185, 129, 0.3);">Norma WCAG 2.1 AA</span>
+      <div class="value-prop-layout">
+        <!-- Columna Izquierda: Tarjetas de Propuesta de Valor -->
+        <div class="value-cards-col">
+          <div class="value-card-row">
+            <div class="value-card-header">
+              <div class="value-card-title-wrap">
+                <span class="value-card-num">01</span>
+                <h3 class="value-card-title">Accesibilidad Nativa</h3>
+              </div>
+              <span class="value-card-badge">WCAG 2.1 AA</span>
+            </div>
+            <p class="value-card-desc">
+              Sincronización del atributo <code>lang</code> para pronunciación natural en TalkBack/VoiceOver, soporte
+              completo por teclado y tokens de alto contraste adaptativos.
+            </p>
+          </div>
+
+          <div class="value-card-row">
+            <div class="value-card-header">
+              <div class="value-card-title-wrap">
+                <span class="value-card-num">02</span>
+                <h3 class="value-card-title">Experiencia Fluida & Responsive</h3>
+              </div>
+              <span class="value-card-badge">WEB & MOBILE</span>
+            </div>
+            <p class="value-card-desc">
+              Mismo nivel de diseño y rendimiento en el navegador de un smartphone o pantalla de escritorio. Físicas
+              fluidas con Motion y canvas interactivo optimizado.
+            </p>
+          </div>
+
+          <div class="value-card-row">
+            <div class="value-card-header">
+              <div class="value-card-title-wrap">
+                <span class="value-card-num">03</span>
+                <h3 class="value-card-title">Solidez & Rigor Contable</h3>
+              </div>
+              <span class="value-card-badge">GRADO BANCARIO</span>
+            </div>
+            <p class="value-card-desc">
+              Atomicidad en cada movimiento con doble asiento contable (patrón Unit of Work en EF Core): los fondos
+              nunca quedan en el limbo. Generación instantánea de comprobantes PDF oficiales.
+            </p>
+          </div>
         </div>
 
-        <div class="glass-card">
-          <div class="card-icon" style="background: rgba(56, 189, 248, 0.1); color: #38BDF8; border-color: rgba(56, 189, 248, 0.3);">📲</div>
-          <h3 class="card-title">Experiencia Multiplataforma Fluida</h3>
-          <p class="card-desc">
-            Mismo nivel de diseño y rendimiento en el navegador de un smartphone o en una pantalla de escritorio. Físicas fluidas de resorte con Motion y canvas interactivo sin degradar batería.
-          </p>
-          <span class="card-badge" style="background: rgba(56, 189, 248, 0.15); color: #38BDF8; border-color: rgba(56, 189, 248, 0.3);">Responsive & Ágil</span>
-        </div>
-
-        <div class="glass-card">
-          <div class="card-icon" style="background: rgba(124, 58, 237, 0.1); color: #A855F7; border-color: rgba(124, 58, 237, 0.3);">🛡️</div>
-          <h3 class="card-title">Solidez y Transparencia Financiera</h3>
-          <p class="card-desc">
-            Atomicidad en cada movimiento con doble asiento contable (patrón Unit of Work en EF Core): los fondos nunca quedan en el limbo. Generación instantánea de comprobantes PDF oficiales desde el cliente.
-          </p>
-          <span class="card-badge" style="background: rgba(124, 58, 237, 0.15); color: #A855F7; border-color: rgba(124, 58, 237, 0.3);">Seguridad Bancaria</span>
+        <!-- Columna Derecha: Showcase de Imagen 4 -->
+        <div class="value-visual-col">
+          <div class="value-image-card" title="Hacé clic para ampliar">
+            <img src="imagen4.png" alt="Propuesta de Valor DigitalArs" class="value-img-element"
+              onerror="this.src='app-preview.jpg'">
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════ -->
-    <!-- SLIDE 5: CIERRE Y LLAMADO A LA ACCIÓN (30 - 45s) -->
+    <!-- SLIDE 5: CIERRE Y VISIÓN (30 - 45s) -->
     <!-- ═══════════════════════════════════════════════════════════════════ -->
     <section class="slide" data-slide="5">
-      <div class="slide-eyebrow">Visión & Cierre</div>
       <h2 class="slide-title">El Futuro de DigitalArs</h2>
       <p class="slide-subtitle">
         Hacia un ecosistema financiero verdaderamente inclusivo, abierto e interoperable.
       </p>
 
-      <div class="cards-grid cols-2">
-        <div class="glass-card">
-          <div class="card-icon">🚀</div>
-          <h3 class="card-title">Próximos Pasos (Roadmap)</h3>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: var(--text-muted); margin-top: 10px;">
-            <li>🔹 <strong>Pagos QR Interoperables:</strong> Integración de lectura y cobro presencial en comercios físicos.</li>
-            <li>🔹 <strong>Microcréditos Inteligentes:</strong> Motor de scoring crediticio adaptado al historial del usuario.</li>
-            <li>🔹 <strong>Transferencias Push Inmediatas:</strong> Notificaciones WebSockets en tiempo real.</li>
-          </ul>
-        </div>
+      <div class="vision-layout">
+        <div class="vision-grid">
+          <div class="vision-card">
+            <div class="vision-card-header">
+              <h3 class="vision-card-title">Próximos Pasos</h3>
+              <span class="vision-card-tag">ROADMAP</span>
+            </div>
+            <ul class="vision-list">
+              <li class="vision-list-item">
+                <span class="vision-bullet">▸</span>
+                <div><strong>Pagos QR Interoperables:</strong> Integración de cobro y lectura en comercios físicos.
+                </div>
+              </li>
+              <li class="vision-list-item">
+                <span class="vision-bullet">▸</span>
+                <div><strong>Microcréditos Inteligentes:</strong> Motor de scoring crediticio adaptado al historial del
+                  usuario.</div>
+              </li>
+              <li class="vision-list-item">
+                <span class="vision-bullet">▸</span>
+                <div><strong>Transferencias Push Inmediatas:</strong> Notificaciones WebSockets en tiempo real.</div>
+              </li>
+            </ul>
+          </div>
 
-        <div class="glass-card">
-          <div class="card-icon">🤝</div>
-          <h3 class="card-title">Qué Buscamos Hoy</h3>
-          <p class="card-desc" style="font-size: 14px; margin-top: 8px;">
-            Los invitamos a probar la plataforma, validar la experiencia de accesibilidad con lectores de pantalla y acompañarnos en escalar este proyecto como un estándar real de inclusión fintech.
-          </p>
-          <div style="margin-top: 16px; display: flex; gap: 10px; align-items: center;">
-            <span class="brand-badge">Repositorio Abierto</span>
-            <span class="brand-badge" style="background: rgba(16,185,129,0.15); color: #10B981; border-color: rgba(16,185,129,0.3);">Demo Disponible</span>
+          <div class="vision-card">
+            <div class="vision-card-header">
+              <h3 class="vision-card-title">Qué Buscamos Hoy</h3>
+              <span class="vision-card-tag">COMUNIDAD</span>
+            </div>
+            <p class="vision-community-desc">
+              Los invitamos a probar la plataforma, validar la experiencia de accesibilidad con lectores de pantalla y
+              acompañarnos en escalar este proyecto como un estándar real de inclusión fintech.
+            </p>
+            <div class="vision-badges-wrap">
+              <span class="vision-pill-badge cyan">REPOSITORIO ABIERTO</span>
+              <span class="vision-pill-badge green">DEMO DISPONIBLE</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="closing-quote-card">
-        <p class="closing-quote">
-          "La verdadera inclusión financiera no es solo tener una cuenta, sino que cualquier persona, desde cualquier dispositivo y sin importar sus capacidades, pueda operarla con total autonomía y confianza."
-        </p>
-        <div class="closing-author">
-          <span>✨</span>
-          <span>¡Muchas gracias! — Equipo Squad-stack (Emmanuel, Andrés, Micaela, Máximo)</span>
+        <div class="closing-quote-card">
+          <p class="closing-quote">
+            "La verdadera inclusión financiera no es solo tener una cuenta, sino que cualquier persona, desde cualquier
+            dispositivo y sin importar sus capacidades, pueda operarla con total autonomía y confianza."
+          </p>
+          <div class="closing-author">
+            EQUIPO SQUAD-STACK (EMMANUEL, MAXIMO, MICAELA, ANDRÉS)
+          </div>
         </div>
       </div>
     </section>
@@ -1086,20 +2031,18 @@
 
   <!-- Barra de Navegación Inferior -->
   <footer class="bottom-bar">
-    <div class="keyboard-hint">
-      Navegación: <span class="kbd-key">←</span> <span class="kbd-key">→</span> o <span class="kbd-key">Espacio</span> · Diapo <span id="slide-num">1</span> de 5
-    </div>
+    <div class="bottom-bar-left"></div>
 
     <div class="slide-nav-pills" id="nav-pills">
-      <button class="nav-dot active" data-target="1" title="1. Equipo"></button>
-      <button class="nav-dot" data-target="2" title="2. El Problema"></button>
-      <button class="nav-dot" data-target="3" title="3. La Solución"></button>
-      <button class="nav-dot" data-target="4" title="4. Propuesta de Valor"></button>
-      <button class="nav-dot" data-target="5" title="5. Cierre & Visión"></button>
+      <button class="nav-dot active" data-target="1" title="1. Presentación">1</button>
+      <button class="nav-dot" data-target="2" title="2. El Problema">2</button>
+      <button class="nav-dot" data-target="3" title="3. La Solución">3</button>
+      <button class="nav-dot" data-target="4" title="4. Propuesta de Valor">4</button>
+      <button class="nav-dot" data-target="5" title="5. Cierre & Visión">5</button>
     </div>
 
     <div class="keyboard-hint">
-      <span class="kbd-key">N</span> Notas · <span class="kbd-key">T</span> Timer · <span class="kbd-key">F</span> Fullscreen
+      <span class="kbd-key">T</span> TIMER
     </div>
   </footer>
 
@@ -1107,15 +2050,31 @@
   <aside class="speaker-drawer" id="speaker-drawer">
     <div class="drawer-header">
       <div class="drawer-title">
-        <span>🎙️</span>
-        <span id="drawer-slide-title">Notas del Orador: Diapositiva 1 (30 - 45 seg)</span>
+        <span id="drawer-slide-title">NOTAS DEL ORADOR: DIAPOSITIVA 1 (30 - 45 SEG)</span>
       </div>
-      <button class="btn-pill" id="close-drawer" style="padding: 3px 10px; font-size: 11px;">Cerrar (Esc)</button>
+      <button class="btn-rect" id="close-drawer" style="padding: 3px 10px; font-size: 11px;">CERRAR (ESC)</button>
     </div>
     <div class="drawer-content" id="drawer-text">
       <!-- Se actualiza dinámicamente según la diapositiva -->
     </div>
   </aside>
+
+  <!-- Modal Lightbox para Ampliar Capturas en Alta Resolución -->
+  <div id="image-lightbox" class="image-lightbox" role="dialog" aria-modal="true"
+    aria-label="Visualizador de captura en pantalla completa">
+    <div class="lightbox-overlay" id="lightbox-overlay"></div>
+    <div class="lightbox-container">
+      <div class="lightbox-topbar">
+        <div class="lightbox-title-wrap">
+          <span id="lightbox-title">DigitalArs · Captura de Pantalla</span>
+        </div>
+        <button class="lightbox-close-btn" id="lightbox-close" title="Cerrar (ESC)">✕</button>
+      </div>
+      <div class="lightbox-body">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Captura ampliada de DigitalArs" />
+      </div>
+    </div>
+  </div>
 
   <!-- Lógica de Control de la Presentación -->
   <script>
@@ -1123,10 +2082,11 @@
     // NOTAS DEL ORADOR PARA CADA DIAPOSITIVA (SPOKEN SCRIPT)
     // ═══════════════════════════════════════════════════════════════════════
     const speakerNotes = {
-      1: `<strong>Objetivo:</strong> Presentar al equipo y la dinámica colaborativa.<br><br>
+      1: `<strong>Objetivo:</strong> Presentar el proyecto y al equipo de desarrollo.<br><br>
           <strong>Qué decir (30-45s):</strong><br>
-          • "Buenas tardes a todos. Somos el Equipo 1, Squad-stack, integrado por Emmanuel Gutiérrez y Andrés Carrasco en el Track .NET, y Micaela Mulato y Máximo Porretti en el Track React.<br>
-          • A lo largo del programa trabajamos de forma integrada y ágil, sincronizando backend y frontend de extremo a extremo para construir DigitalArs: una billetera digital accesible, moderna y segura."`,
+          • "Buenas tardes a todos. Somos el Equipo Squad-stack y les presentamos DigitalArs: una billetera digital accesible, moderna y de alto rendimiento.<br>
+          • Nuestro equipo está integrado por Emmanuel Gutiérrez, Máximo Porretti, Micaela Mulato y Andrés Carrasco en el Track .NET y React.<br>
+          • Integramos backend y frontend en sprints continuos para entregar una solución completa, robusta y con foco absoluto en la experiencia de usuario."`,
 
       2: `<strong>Objetivo:</strong> Conectar con el dolor del usuario y plantear la relevancia del problema.<br><br>
           <strong>Qué decir (45-60s):</strong><br>
@@ -1233,7 +2193,11 @@
           toggleFullscreen();
           break;
         case 'Escape':
-          closeNotes();
+          if (lightbox && lightbox.classList.contains('active')) {
+            closeLightbox();
+          } else {
+            closeNotes();
+          }
           break;
       }
     });
@@ -1248,28 +2212,32 @@
     const btnCloseDrawer = document.getElementById('close-drawer');
 
     function updateSpeakerNotes() {
-      drawerTitle.innerHTML = `Notas del Orador: Diapositiva ${currentSlide} de 5`;
+      drawerTitle.innerHTML = `NOTAS DEL ORADOR: DIAPOSITIVA ${currentSlide} DE 5`;
       drawerText.innerHTML = speakerNotes[currentSlide] || "Sin notas adicionales.";
     }
 
     function toggleNotes() {
+      if (!drawer) return;
       drawer.classList.toggle('open');
-      btnNotes.style.borderColor = drawer.classList.contains('open') ? 'var(--accent-cyan)' : 'var(--border-color)';
+      if (btnNotes) {
+        btnNotes.style.borderColor = drawer.classList.contains('open') ? 'var(--border-active)' : 'var(--border-color)';
+      }
     }
 
     function closeNotes() {
+      if (!drawer) return;
       drawer.classList.remove('open');
-      btnNotes.style.borderColor = 'var(--border-color)';
+      if (btnNotes) btnNotes.style.borderColor = 'var(--border-color)';
     }
 
-    btnNotes.addEventListener('click', toggleNotes);
-    btnCloseDrawer.addEventListener('click', closeNotes);
+    if (btnNotes) btnNotes.addEventListener('click', toggleNotes);
+    if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeNotes);
     updateSpeakerNotes();
 
     // ═══════════════════════════════════════════════════════════════════════
     // CRONÓMETRO DE 5 MINUTOS
     // ═══════════════════════════════════════════════════════════════════════
-    let timerTotalSeconds = 5 * 60; // 300 segundos
+    let timerTotalSeconds = 5 * 60;
     let timerRunning = false;
     let timerInterval = null;
 
@@ -1279,13 +2247,17 @@
     function renderTimer() {
       const mins = Math.floor(timerTotalSeconds / 60);
       const secs = timerTotalSeconds % 60;
-      timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      if (timerDisplay) {
+        timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      }
 
-      timerBtn.classList.remove('warning', 'danger');
-      if (timerTotalSeconds <= 60 && timerTotalSeconds > 20) {
-        timerBtn.classList.add('warning');
-      } else if (timerTotalSeconds <= 20) {
-        timerBtn.classList.add('danger');
+      if (timerBtn) {
+        timerBtn.classList.remove('warning', 'danger');
+        if (timerTotalSeconds <= 60 && timerTotalSeconds > 20) {
+          timerBtn.classList.add('warning');
+        } else if (timerTotalSeconds <= 20) {
+          timerBtn.classList.add('danger');
+        }
       }
     }
 
@@ -1293,10 +2265,10 @@
       if (timerRunning) {
         clearInterval(timerInterval);
         timerRunning = false;
-        timerBtn.style.opacity = '0.7';
+        if (timerBtn) timerBtn.style.opacity = '0.7';
       } else {
         timerRunning = true;
-        timerBtn.style.opacity = '1';
+        if (timerBtn) timerBtn.style.opacity = '1';
         timerInterval = setInterval(() => {
           if (timerTotalSeconds > 0) {
             timerTotalSeconds--;
@@ -1309,17 +2281,19 @@
       }
     }
 
-    timerBtn.addEventListener('click', toggleTimer);
+    if (timerBtn) timerBtn.addEventListener('click', toggleTimer);
 
     // ═══════════════════════════════════════════════════════════════════════
     // MODO CLARO / OSCURO
     // ═══════════════════════════════════════════════════════════════════════
     const themeBtn = document.getElementById('btn-theme');
-    themeBtn.addEventListener('click', () => {
-      const current = document.body.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.body.setAttribute('data-theme', next);
-    });
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.body.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', next);
+      });
+    }
 
     // ═══════════════════════════════════════════════════════════════════════
     // PANTALLA COMPLETA
@@ -1332,17 +2306,116 @@
         if (document.exitFullscreen) document.exitFullscreen();
       }
     }
-    fsBtn.addEventListener('click', toggleFullscreen);
+    if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
 
     // ═══════════════════════════════════════════════════════════════════════
-    // CANVAS ANIMADO DOTGRID (FONDO INTERACTIVO DIGITALARS)
+    // ESCENARIO DE COMPONENTES INTERACTIVO (SLIDE 3 ON HOVER / CLICK)
+    // ═══════════════════════════════════════════════════════════════════════
+    const featureItems = document.querySelectorAll('.feature-item');
+    const stageWrappers = document.querySelectorAll('.stage-view-wrapper');
+    const stageTitle = document.getElementById('stage-title');
+
+    const featureMetadata = {
+      1: { title: 'Dashboard · Saldo y Accesos Rápidos' },
+      2: { title: 'Transferencias · Confirmación & Comprobante' },
+      3: { title: 'Plazos Fijos · Simulador y Rendimiento' },
+      4: { title: 'Tarjetas Virtuales · Gestión y Seguridad' },
+      5: { title: 'Pago de Servicios · Impuestos y Facturas' },
+      6: { title: 'Billetera de Reservas · Ahorro Automático' },
+      7: { title: 'Historial & Comprobantes · Auditoría PDF' }
+    };
+
+    function activateFeature(index) {
+      featureItems.forEach((item) => {
+        const itemIdx = parseInt(item.getAttribute('data-feature'), 10);
+        if (itemIdx === index) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      stageWrappers.forEach((view) => {
+        const viewIdx = parseInt(view.getAttribute('data-view'), 10);
+        if (viewIdx === index) {
+          view.classList.add('active');
+        } else {
+          view.classList.remove('active');
+        }
+      });
+
+      if (featureMetadata[index] && stageTitle) {
+        stageTitle.textContent = featureMetadata[index].title;
+      }
+    }
+
+    featureItems.forEach((item) => {
+      const index = parseInt(item.getAttribute('data-feature'), 10);
+      item.addEventListener('mouseenter', () => activateFeature(index));
+      item.addEventListener('click', () => activateFeature(index));
+      item.addEventListener('focus', () => activateFeature(index));
+    });
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // LIGHTBOX / ZOOM MODAL PARA CAPTURAS EN ALTA RESOLUCIÓN
+    // ═══════════════════════════════════════════════════════════════════════
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+
+    function openLightbox(imgSrc, titleText) {
+      if (!lightbox || !lightboxImg) return;
+      lightboxImg.src = imgSrc;
+      if (lightboxTitle) lightboxTitle.textContent = titleText || 'DigitalArs · Captura';
+      lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+      if (!lightbox) return;
+      lightbox.classList.remove('active');
+    }
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxOverlay) lightboxOverlay.addEventListener('click', closeLightbox);
+
+    // Clic en el escenario para ampliar la captura activa
+    const stageContainer = document.getElementById('component-stage');
+    if (stageContainer) {
+      stageContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const activeWrapper = stageContainer.querySelector('.stage-view-wrapper.active');
+        if (activeWrapper) {
+          const activeImg = activeWrapper.querySelector('.stage-view-img');
+          const title = stageTitle ? stageTitle.textContent : 'DigitalArs · Solución';
+          if (activeImg) openLightbox(activeImg.src, title);
+        }
+      });
+    }
+
+    // Permitir ampliar también las imágenes de las demás diapositivas
+    document.querySelectorAll('.hero-image-card, .problem-image-card, .value-image-card').forEach(card => {
+      card.style.cursor = 'zoom-in';
+      card.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const img = card.querySelector('img');
+        if (img) {
+          const title = img.alt || 'DigitalArs · Demo';
+          openLightbox(img.src, title);
+        }
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // CANVAS DE FONDO CON PUNTOS AUTÓNOMOS E INTERACTIVOS
     // ═══════════════════════════════════════════════════════════════════════
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
 
     let width, height;
-    let mouse = { x: -1000, y: -1000 };
-    const spacing = 32;
+    let mouse = { x: -2000, y: -2000 };
+    const spacing = 36;
 
     function resizeCanvas() {
       width = canvas.width = window.innerWidth;
@@ -1356,43 +2429,152 @@
       mouse.y = e.clientY;
     });
 
-    function drawDots() {
+    window.addEventListener('mouseleave', () => {
+      mouse.x = -2000;
+      mouse.y = -2000;
+    });
+
+    // Nodos de luz autónomos que navegan suavemente por la pantalla
+    const autonomousLights = [
+      { x: window.innerWidth * 0.25, y: window.innerHeight * 0.35, vx: 0.85, vy: 0.65, radius: 180, phase: 0 },
+      { x: window.innerWidth * 0.75, y: window.innerHeight * 0.65, vx: -0.75, vy: 0.55, radius: 210, phase: 1.5 },
+      { x: window.innerWidth * 0.50, y: window.innerHeight * 0.20, vx: 0.6, vy: -0.8, radius: 160, phase: 3.0 },
+      { x: window.innerWidth * 0.30, y: window.innerHeight * 0.80, vx: -0.5, vy: -0.6, radius: 190, phase: 4.5 },
+      { x: window.innerWidth * 0.80, y: window.innerHeight * 0.25, vx: 0.7, vy: -0.5, radius: 170, phase: 2.2 }
+    ];
+
+    // Destellos aleatorios que se encienden solos (Twinkles / Sparks)
+    const activeSparks = [];
+    const maxSparks = 18;
+
+    function spawnSpark() {
+      if (activeSparks.length < maxSparks && Math.random() < 0.35) {
+        const cols = Math.floor(width / spacing);
+        const rows = Math.floor(height / spacing);
+        activeSparks.push({
+          c: Math.floor(Math.random() * (cols + 1)),
+          r: Math.floor(Math.random() * (rows + 1)),
+          life: 0,
+          maxLife: 50 + Math.random() * 60,
+          peakAlpha: 0.85 + Math.random() * 0.15
+        });
+      }
+    }
+
+    let time = 0;
+
+    function drawGrid() {
+      time += 0.02;
       ctx.clearRect(0, 0, width, height);
 
       const isDark = document.body.getAttribute('data-theme') === 'dark';
-      const baseDotColor = isDark ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0, 86, 210, 0.12)';
-      const activeDotColor = isDark ? 'rgba(56, 189, 248, 0.85)' : 'rgba(0, 86, 210, 0.85)';
+      const basePointColor = isDark ? 'rgba(255, 255, 255, 0.10)' : 'rgba(15, 23, 42, 0.12)';
+      const accentRgb = isDark ? '59, 130, 246' : '0, 86, 210';
+      const highlightRgb = isDark ? '147, 197, 253' : '37, 99, 235';
+
+      // Actualizar nodos de luz autónomos
+      for (let i = 0; i < autonomousLights.length; i++) {
+        const light = autonomousLights[i];
+        light.x += light.vx + Math.sin(time + light.phase) * 0.4;
+        light.y += light.vy + Math.cos(time + light.phase * 0.8) * 0.4;
+
+        if (light.x < -40) light.x = width + 40;
+        if (light.x > width + 40) light.x = -40;
+        if (light.y < -40) light.y = height + 40;
+        if (light.y > height + 40) light.y = -40;
+      }
+
+      // Gestionar destellos individuales (sparks)
+      spawnSpark();
+      for (let i = activeSparks.length - 1; i >= 0; i--) {
+        activeSparks[i].life++;
+        if (activeSparks[i].life >= activeSparks[i].maxLife) {
+          activeSparks.splice(i, 1);
+        }
+      }
 
       const cols = Math.ceil(width / spacing);
       const rows = Math.ceil(height / spacing);
+
+      // Mapa de chispas activas para búsqueda rápida
+      const sparkMap = {};
+      for (let i = 0; i < activeSparks.length; i++) {
+        const sp = activeSparks[i];
+        const key = `${sp.c}_${sp.r}`;
+        const half = sp.maxLife / 2;
+        const alpha = sp.life < half
+          ? (sp.life / half) * sp.peakAlpha
+          : (1 - (sp.life - half) / half) * sp.peakAlpha;
+        sparkMap[key] = Math.max(sparkMap[key] || 0, alpha);
+      }
 
       for (let r = 0; r <= rows; r++) {
         for (let c = 0; c <= cols; c++) {
           const x = c * spacing;
           const y = r * spacing;
 
-          const dist = Math.hypot(x - mouse.x, y - mouse.y);
-          const maxDist = 120;
+          // 1. Influencia de las luces autónomas
+          let autoIntensity = 0;
+          for (let i = 0; i < autonomousLights.length; i++) {
+            const light = autonomousLights[i];
+            const dist = Math.hypot(x - light.x, y - light.y);
+            const currentRadius = light.radius + Math.sin(time * 1.5 + light.phase) * 25;
+            if (dist < currentRadius) {
+              const factor = (1 - dist / currentRadius);
+              autoIntensity = Math.max(autoIntensity, factor * 0.9);
+            }
+          }
 
-          if (dist < maxDist) {
-            const factor = 1 - dist / maxDist;
-            const radius = 1.5 + factor * 2.5;
-            ctx.fillStyle = activeDotColor;
+          // 2. Influencia de onda armónica de fondo suave
+          const wave = (Math.sin(x * 0.007 + time * 0.8) * Math.cos(y * 0.007 + time * 0.6) + 1) * 0.5;
+          const waveIntensity = wave > 0.72 ? (wave - 0.72) / 0.28 * 0.45 : 0;
+
+          // 3. Influencia del cursor del mouse
+          const mouseDist = Math.hypot(x - mouse.x, y - mouse.y);
+          const mouseMax = 140;
+          let mouseIntensity = 0;
+          if (mouseDist < mouseMax) {
+            mouseIntensity = (1 - mouseDist / mouseMax);
+          }
+
+          // 4. Influencia de chispas aleatorias
+          const sparkIntensity = sparkMap[`${c}_${r}`] || 0;
+
+          // Intensidad total combinada
+          const totalIntensity = Math.min(1, autoIntensity + waveIntensity + mouseIntensity * 1.2 + sparkIntensity);
+
+          if (totalIntensity > 0.08) {
+            const pointRadius = 1.2 + totalIntensity * 2.2;
+            const alpha = 0.25 + totalIntensity * 0.75;
+
+            ctx.fillStyle = totalIntensity > 0.65
+              ? `rgba(${highlightRgb}, ${alpha})`
+              : `rgba(${accentRgb}, ${alpha})`;
+
             ctx.beginPath();
-            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.arc(x, y, pointRadius, 0, Math.PI * 2);
             ctx.fill();
+
+            // Halo suave para puntos con alta intensidad
+            if (totalIntensity > 0.7) {
+              ctx.fillStyle = `rgba(${accentRgb}, ${(totalIntensity - 0.7) * 0.35})`;
+              ctx.beginPath();
+              ctx.arc(x, y, pointRadius * 2.2, 0, Math.PI * 2);
+              ctx.fill();
+            }
           } else {
-            ctx.fillStyle = baseDotColor;
+            ctx.fillStyle = basePointColor;
             ctx.beginPath();
-            ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+            ctx.arc(x, y, 1.15, 0, Math.PI * 2);
             ctx.fill();
           }
         }
       }
 
-      requestAnimationFrame(drawDots);
+      requestAnimationFrame(drawGrid);
     }
-    drawDots();
+    drawGrid();
   </script>
 </body>
+
 </html>
