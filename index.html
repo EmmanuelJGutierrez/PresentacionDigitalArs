@@ -1505,6 +1505,19 @@
       border-color: rgba(16, 185, 129, 0.35);
     }
 
+    a.vision-pill-badge {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: filter 0.2s ease, transform 0.15s ease;
+    }
+
+    a.vision-pill-badge:hover {
+      filter: brightness(1.3);
+      transform: translateY(-1px);
+    }
+
     .closing-quote-card {
       background: linear-gradient(145deg, rgba(12, 19, 36, 0.95) 0%, rgba(8, 12, 24, 0.98) 100%);
       border: 1px solid rgba(56, 189, 248, 0.3);
@@ -2065,7 +2078,8 @@
               acompañarnos en escalar este proyecto como un estándar real de inclusión fintech.
             </p>
             <div class="vision-badges-wrap">
-              <span class="vision-pill-badge cyan">REPOSITORIO ABIERTO</span>
+              <a href="https://github.com/porrettimaximo/Squad-stack-Frontend" target="_blank" rel="noopener noreferrer" class="vision-pill-badge cyan" title="Frontend · Squad-stack">⬡ FRONTEND</a>
+              <a href="https://github.com/MicaMulato/Squad-stack" target="_blank" rel="noopener noreferrer" class="vision-pill-badge cyan" title="Backend · Squad-stack">⬡ BACKEND</a>
               <span class="vision-pill-badge green">DEMO DISPONIBLE</span>
             </div>
           </div>
