@@ -2141,7 +2141,7 @@
       if (targetSlide) targetSlide.classList.add('active');
       if (targetDot) targetDot.classList.add('active');
 
-      slideNumEl.textContent = currentSlide;
+      if (slideNumEl) slideNumEl.textContent = currentSlide;
       progressFill.style.width = `${(currentSlide / totalSlides) * 100}%`;
 
       updateSpeakerNotes();
