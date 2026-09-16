@@ -525,15 +525,106 @@
       width: 100%;
       max-width: 550px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
+      align-items: stretch;
+    }
+
+    /* Tabs Superiores de Slide 1 */
+    .hero-stage-tabs {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
+      width: 100%;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .hero-tabs-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 3px 5px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-tab-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+      outline: none;
+    }
+
+    .hero-tab-pill:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-tab-pill.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 2px 10px rgba(0, 86, 210, 0.45);
+    }
+
+    .hero-tab-pill .tab-play-icon {
+      font-size: 10px;
+      color: #38BDF8;
+    }
+
+    .hero-tab-pill.active .tab-play-icon {
+      color: #FFFFFF;
+    }
+
+    .hero-tabs-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-action-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-color);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .hero-action-pill:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-cyan);
+      color: #FFFFFF;
+      transform: translateY(-1px);
     }
 
     /* Marco Minimalista de la Imagen con Sutil Resplandor y Brillo Empresarial */
     .hero-image-card {
       position: relative;
       width: 100%;
-      height: 440px;
+      height: 420px;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid rgba(59, 130, 246, 0.35);
@@ -597,6 +688,36 @@
       box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 55px rgba(37, 99, 235, 0.38);
     }
 
+    /* Modo Video Activo: fijar posición para que los controles no oscilen al interactuar */
+    .hero-image-card.video-active {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    .hero-image-card.video-active::after {
+      display: none;
+    }
+
+    /* Paneles de Contenido en Hero */
+    .hero-pane {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hero-pane.active {
+      display: block;
+    }
+
+    .hero-inline-video-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #000000;
+    }
+
     .hero-showcase-img {
       width: 100%;
       height: 100%;
@@ -608,6 +729,55 @@
 
     .hero-image-card:hover .hero-showcase-img {
       transform: scale(1.025);
+    }
+
+    /* Footer del Stage en Hero */
+    .hero-stage-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+      padding: 0 2px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-footer-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+      display: inline-block;
+      animation: livePulse 2s infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    /* Botón Video en Barra Superior */
+    .video-top-btn {
+      color: #38BDF8 !important;
+      background: rgba(56, 189, 248, 0.12) !important;
+      border-color: rgba(56, 189, 248, 0.35) !important;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+    }
+
+    .video-top-btn:hover {
+      background: rgba(56, 189, 248, 0.24) !important;
+      border-color: #38BDF8 !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+      transform: translateY(-1px);
     }
 
     /* ═══════════════════════════════════════════════════════════════════ */
@@ -1186,6 +1356,45 @@
       display: block;
     }
 
+    /* Modal de Video Específico */
+    .video-lightbox-container {
+      width: 92vw;
+      max-width: 1060px;
+      height: 84vh;
+      max-height: 650px;
+    }
+
+    .video-lightbox-body {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      padding: 0 !important;
+      background: #000000 !important;
+    }
+
+    .lightbox-video-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-dot-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #EF4444;
+      box-shadow: 0 0 8px #EF4444;
+      display: inline-block;
+      animation: livePulse 1.5s infinite;
+    }
+
+    .lightbox-actions-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     /* ═══════════════════════════════════════════════════════════════════ */
     /* SLIDE 4: PROPUESTA DE VALOR (Layout 2 Columnas & Showcase Imagen 4) */
     /* ═══════════════════════════════════════════════════════════════════ */
@@ -1505,15 +1714,24 @@
       border-color: rgba(16, 185, 129, 0.35);
     }
 
-    a.vision-pill-badge {
+    .vision-pill-badge.amber {
+      color: #FBBF24;
+      background: rgba(245, 158, 11, 0.14);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    a.vision-pill-badge,
+    button.vision-pill-badge {
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      transition: filter 0.2s ease, transform 0.15s ease;
+      transition: filter 0.2s ease, transform 0.15s ease, background 0.2s ease;
+      cursor: pointer;
     }
 
-    a.vision-pill-badge:hover {
+    a.vision-pill-badge:hover,
+    button.vision-pill-badge:hover {
       filter: brightness(1.3);
       transform: translateY(-1px);
     }
@@ -1736,8 +1954,11 @@
       </span>
     </div>
 
-    <!-- Controles a la Derecha: Solo Cronómetro -->
+    <!-- Controles a la Derecha: Video Oficial y Cronómetro -->
     <div class="controls-group">
+      <button class="btn-rect video-top-btn" id="btn-top-video" title="Ver video oficial de la presentación">
+        <span>▶</span> VIDEO DEMO
+      </button>
       <button class="btn-rect timer-rect" id="btn-timer" title="Hacé clic para pausar/reanudar el tiempo">
         <span id="timer-display">05:00</span>
       </button>
@@ -1794,13 +2015,67 @@
           </div>
         </div>
 
-        <!-- Columna Derecha: Showcase Visual Minimalista -->
+        <!-- Columna Derecha: Showcase Visual con Video de la Presentación & Capturas -->
         <div class="hero-visual-col">
           <div class="hero-showcase-stage">
-            <div class="hero-image-card">
-              <img src="app-preview.jpg" alt="DigitalArs App Demo" class="hero-showcase-img"
-                onerror="this.src='hero.jpg'">
+
+            <!-- Selector Superior de Vista: Video Oficial vs. Captura de la App -->
+            <div class="hero-stage-tabs">
+              <div class="hero-tabs-left">
+                <button class="hero-tab-pill active" id="hero-tab-video" type="button" aria-label="Ver Video de Presentación">
+                  <span class="tab-play-icon">▶</span>
+                  <span>Video Presentación</span>
+                </button>
+                <button class="hero-tab-pill" id="hero-tab-preview" type="button" aria-label="Ver Captura de la App">
+                  <span class="tab-icon">📱</span>
+                  <span>Captura App</span>
+                </button>
+              </div>
+
+              <div class="hero-tabs-right">
+                <button class="hero-action-pill" id="hero-btn-expand-video" type="button" title="Ampliar Video en Pantalla Completa">
+                  <span>⛶ Ampliar</span>
+                </button>
+                <a href="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="hero-action-pill" title="Abrir video en Google Drive">
+                  <span>Drive ↗</span>
+                </a>
+              </div>
             </div>
+
+            <!-- Card Principal de Demostración -->
+            <div class="hero-image-card video-active" id="hero-media-card">
+              <!-- Vista 1: Video Iframe Oficial Embebido -->
+              <div class="hero-pane hero-video-pane active" id="hero-pane-video">
+                <iframe
+                  id="hero-inline-iframe"
+                  class="hero-inline-video-frame"
+                  src="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/preview"
+                  allow="autoplay; encrypted-media; fullscreen"
+                  allowfullscreen
+                  title="Video de la Presentación Oficial DigitalArs">
+                </iframe>
+              </div>
+
+              <!-- Vista 2: Captura de Pantalla Ampliable -->
+              <div class="hero-pane hero-preview-pane" id="hero-pane-preview" title="Hacé clic para ampliar la captura">
+                <img src="app-preview.jpg" alt="DigitalArs App Demo" class="hero-showcase-img"
+                  onerror="this.src='hero.jpg'">
+                <div class="stage-zoom-badge">
+                  <span>🔍</span>
+                  <span>Clic para ampliar captura</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Informativo del Showcase -->
+            <div class="hero-stage-footer">
+              <div class="hero-footer-left">
+                <span class="hero-footer-dot"></span>
+                <span>Pitch oficial de cierre · Demo grabada en vivo</span>
+              </div>
+              <span>Squad-stack</span>
+            </div>
+
           </div>
         </div>
 
@@ -2080,6 +2355,7 @@
             <div class="vision-badges-wrap">
               <a href="https://github.com/porrettimaximo/Squad-stack-Frontend" target="_blank" rel="noopener noreferrer" class="vision-pill-badge cyan" title="Frontend · Squad-stack">⬡ FRONTEND</a>
               <a href="https://github.com/MicaMulato/Squad-stack" target="_blank" rel="noopener noreferrer" class="vision-pill-badge cyan" title="Backend · Squad-stack">⬡ BACKEND</a>
+              <button class="vision-pill-badge amber" id="btn-slide5-video" type="button" title="Ver Video Oficial de la Presentación">▶ VER VIDEO PRESENTACIÓN</button>
               <span class="vision-pill-badge green">DEMO DISPONIBLE</span>
             </div>
           </div>
@@ -2142,6 +2418,29 @@
       </div>
       <div class="lightbox-body">
         <img id="lightbox-img" class="lightbox-img" src="" alt="Captura ampliada de DigitalArs" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Lightbox para el Video Oficial de la Presentación -->
+  <div id="video-lightbox" class="image-lightbox" role="dialog" aria-modal="true"
+    aria-label="Reproductor de video oficial de la presentación">
+    <div class="lightbox-overlay" id="video-lightbox-overlay"></div>
+    <div class="lightbox-container video-lightbox-container">
+      <div class="lightbox-topbar">
+        <div class="lightbox-title-wrap">
+          <span class="video-dot-live"></span>
+          <span id="video-lightbox-title">DigitalArs · Video de la Presentación Oficial (Squad-stack)</span>
+        </div>
+        <div class="lightbox-actions-wrap">
+          <a href="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-rect" style="padding: 4px 10px; font-size: 11px; text-decoration: none; color: var(--accent-cyan);" title="Abrir en Google Drive">
+            ABRIR EN DRIVE ↗
+          </a>
+          <button class="lightbox-close-btn" id="video-lightbox-close" title="Cerrar (ESC)">✕</button>
+        </div>
+      </div>
+      <div class="lightbox-body video-lightbox-body">
+        <iframe id="video-modal-iframe" class="lightbox-video-frame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen title="Video Oficial de la Presentación"></iframe>
       </div>
     </div>
   </div>
@@ -2263,7 +2562,9 @@
           toggleFullscreen();
           break;
         case 'Escape':
-          if (lightbox && lightbox.classList.contains('active')) {
+          if (typeof videoLightbox !== 'undefined' && videoLightbox && videoLightbox.classList.contains('active')) {
+            closeVideoModal();
+          } else if (lightbox && lightbox.classList.contains('active')) {
             closeLightbox();
           } else {
             closeNotes();
@@ -2465,7 +2766,7 @@
     }
 
     // Permitir ampliar también las imágenes de las demás diapositivas
-    document.querySelectorAll('.hero-image-card, .problem-image-card, .value-image-card').forEach(card => {
+    document.querySelectorAll('#hero-pane-preview, .problem-image-card, .value-image-card').forEach(card => {
       card.style.cursor = 'zoom-in';
       card.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -2476,6 +2777,74 @@
         }
       });
     });
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // LIGHTBOX MODAL PARA VIDEO OFICIAL DE LA PRESENTACIÓN
+    // ═══════════════════════════════════════════════════════════════════════
+    const videoLightbox = document.getElementById('video-lightbox');
+    const videoModalIframe = document.getElementById('video-modal-iframe');
+    const videoLightboxClose = document.getElementById('video-lightbox-close');
+    const videoLightboxOverlay = document.getElementById('video-lightbox-overlay');
+    const btnTopVideo = document.getElementById('btn-top-video');
+    const btnHeroExpandVideo = document.getElementById('hero-btn-expand-video');
+    const btnSlide5Video = document.getElementById('btn-slide5-video');
+
+    const VIDEO_DRIVE_EMBED_URL = "https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/preview";
+
+    function openVideoModal() {
+      if (!videoLightbox || !videoModalIframe) return;
+      if (!videoModalIframe.src || videoModalIframe.src === '' || videoModalIframe.src === 'about:blank' || !videoModalIframe.src.includes('drive.google.com')) {
+        videoModalIframe.src = VIDEO_DRIVE_EMBED_URL;
+      }
+      videoLightbox.classList.add('active');
+    }
+
+    function closeVideoModal() {
+      if (!videoLightbox) return;
+      videoLightbox.classList.remove('active');
+      // Detener reproducción al cerrar el modal para que no continúe el audio
+      if (videoModalIframe) {
+        videoModalIframe.src = '';
+      }
+    }
+
+    if (videoLightboxClose) videoLightboxClose.addEventListener('click', closeVideoModal);
+    if (videoLightboxOverlay) videoLightboxOverlay.addEventListener('click', closeVideoModal);
+    if (btnTopVideo) btnTopVideo.addEventListener('click', openVideoModal);
+    if (btnHeroExpandVideo) btnHeroExpandVideo.addEventListener('click', openVideoModal);
+    if (btnSlide5Video) btnSlide5Video.addEventListener('click', openVideoModal);
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // CONTROL DE TABS EN SLIDE 1 (VIDEO PRESENTACIÓN VS CAPTURA APP)
+    // ═══════════════════════════════════════════════════════════════════════
+    const tabHeroVideo = document.getElementById('hero-tab-video');
+    const tabHeroPreview = document.getElementById('hero-tab-preview');
+    const paneHeroVideo = document.getElementById('hero-pane-video');
+    const paneHeroPreview = document.getElementById('hero-pane-preview');
+    const heroMediaCard = document.getElementById('hero-media-card');
+    const heroInlineIframe = document.getElementById('hero-inline-iframe');
+
+    function showHeroVideo() {
+      if (tabHeroVideo) tabHeroVideo.classList.add('active');
+      if (tabHeroPreview) tabHeroPreview.classList.remove('active');
+      if (paneHeroVideo) paneHeroVideo.classList.add('active');
+      if (paneHeroPreview) paneHeroPreview.classList.remove('active');
+      if (heroMediaCard) heroMediaCard.classList.add('video-active');
+      if (heroInlineIframe && (!heroInlineIframe.src || heroInlineIframe.src === 'about:blank')) {
+        heroInlineIframe.src = VIDEO_DRIVE_EMBED_URL;
+      }
+    }
+
+    function showHeroPreview() {
+      if (tabHeroPreview) tabHeroPreview.classList.add('active');
+      if (tabHeroVideo) tabHeroVideo.classList.remove('active');
+      if (paneHeroPreview) paneHeroPreview.classList.add('active');
+      if (paneHeroVideo) paneHeroVideo.classList.remove('active');
+      if (heroMediaCard) heroMediaCard.classList.remove('video-active');
+    }
+
+    if (tabHeroVideo) tabHeroVideo.addEventListener('click', showHeroVideo);
+    if (tabHeroPreview) tabHeroPreview.addEventListener('click', showHeroPreview);
 
     // ═══════════════════════════════════════════════════════════════════════
     // CANVAS DE FONDO CON PUNTOS AUTÓNOMOS E INTERACTIVOS

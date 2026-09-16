@@ -3,6 +3,8 @@
 > **Equipo 1 — Squad-stack**  
 > Proyecto seleccionado para la exposición de cierre del Programa de Aceleración Tech (5 minutos).
 
+🎬 **[Ver Video de la Presentación y Demo Oficial (Google Drive)](https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/view?usp=sharing)**
+
 ---
 
 ## 👥 Integrantes y Tracks
