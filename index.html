@@ -624,7 +624,7 @@
     .hero-image-card {
       position: relative;
       width: 100%;
-      height: 420px;
+      height: 440px;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid rgba(59, 130, 246, 0.35);
@@ -760,8 +760,17 @@
     }
 
     @keyframes livePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.85); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.45;
+        transform: scale(0.85);
+      }
     }
 
     /* Botón Video en Barra Superior */
@@ -1957,7 +1966,7 @@
     <!-- Controles a la Derecha: Video Oficial y Cronómetro -->
     <div class="controls-group">
       <button class="btn-rect video-top-btn" id="btn-top-video" title="Ver video oficial de la presentación">
-        <span>▶</span> VIDEO DEMO
+        <span>▶</span> VIDEO
       </button>
       <button class="btn-rect timer-rect" id="btn-timer" title="Hacé clic para pausar/reanudar el tiempo">
         <span id="timer-display">05:00</span>
@@ -2015,65 +2024,54 @@
           </div>
         </div>
 
-        <!-- Columna Derecha: Showcase Visual con Video de la Presentación & Capturas -->
+        <!-- Columna Derecha: Showcase Visual con Captura & Video de la Presentación -->
         <div class="hero-visual-col">
           <div class="hero-showcase-stage">
 
-            <!-- Selector Superior de Vista: Video Oficial vs. Captura de la App -->
+            <!-- Selector Superior de Vista: Captura de la App vs. Video Oficial (sin emojis) -->
             <div class="hero-stage-tabs">
               <div class="hero-tabs-left">
-                <button class="hero-tab-pill active" id="hero-tab-video" type="button" aria-label="Ver Video de Presentación">
-                  <span class="tab-play-icon">▶</span>
-                  <span>Video Presentación</span>
-                </button>
-                <button class="hero-tab-pill" id="hero-tab-preview" type="button" aria-label="Ver Captura de la App">
-                  <span class="tab-icon">📱</span>
+                <button class="hero-tab-pill active" id="hero-tab-preview" type="button"
+                  aria-label="Ver Captura de la App">
                   <span>Captura App</span>
+                </button>
+                <button class="hero-tab-pill" id="hero-tab-video" type="button" aria-label="Ver Video de Presentación">
+                  <span>Video Presentación</span>
                 </button>
               </div>
 
               <div class="hero-tabs-right">
-                <button class="hero-action-pill" id="hero-btn-expand-video" type="button" title="Ampliar Video en Pantalla Completa">
-                  <span>⛶ Ampliar</span>
+                <button class="hero-action-pill" id="hero-btn-expand-video" type="button"
+                  title="Ampliar Video en Pantalla Completa">
+                  <span>Ampliar</span>
                 </button>
-                <a href="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="hero-action-pill" title="Abrir video en Google Drive">
+                <a href="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/view?usp=sharing"
+                  target="_blank" rel="noopener noreferrer" class="hero-action-pill"
+                  title="Abrir video en Google Drive">
                   <span>Drive ↗</span>
                 </a>
               </div>
             </div>
 
             <!-- Card Principal de Demostración -->
-            <div class="hero-image-card video-active" id="hero-media-card">
-              <!-- Vista 1: Video Iframe Oficial Embebido -->
-              <div class="hero-pane hero-video-pane active" id="hero-pane-video">
-                <iframe
-                  id="hero-inline-iframe"
-                  class="hero-inline-video-frame"
-                  src="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/preview"
-                  allow="autoplay; encrypted-media; fullscreen"
-                  allowfullscreen
-                  title="Video de la Presentación Oficial DigitalArs">
-                </iframe>
-              </div>
-
-              <!-- Vista 2: Captura de Pantalla Ampliable -->
-              <div class="hero-pane hero-preview-pane" id="hero-pane-preview" title="Hacé clic para ampliar la captura">
+            <div class="hero-image-card" id="hero-media-card">
+              <!-- Vista 1: Captura de Pantalla Ampliable (Activa por defecto) -->
+              <div class="hero-pane hero-preview-pane active" id="hero-pane-preview"
+                title="Hacé clic para ampliar la captura">
                 <img src="app-preview.jpg" alt="DigitalArs App Demo" class="hero-showcase-img"
                   onerror="this.src='hero.jpg'">
                 <div class="stage-zoom-badge">
-                  <span>🔍</span>
-                  <span>Clic para ampliar captura</span>
+                  <span>Clic para ampliar</span>
                 </div>
               </div>
-            </div>
 
-            <!-- Pie Informativo del Showcase -->
-            <div class="hero-stage-footer">
-              <div class="hero-footer-left">
-                <span class="hero-footer-dot"></span>
-                <span>Pitch oficial de cierre · Demo grabada en vivo</span>
+              <!-- Vista 2: Video Iframe Oficial Embebido (Se activa al presionar Video Presentación) -->
+              <div class="hero-pane hero-video-pane" id="hero-pane-video">
+                <iframe id="hero-inline-iframe" class="hero-inline-video-frame" src=""
+                  allow="autoplay; encrypted-media; fullscreen" allowfullscreen
+                  title="Video de la Presentación Oficial DigitalArs">
+                </iframe>
               </div>
-              <span>Squad-stack</span>
             </div>
 
           </div>
@@ -2104,9 +2102,11 @@
                 Las plataformas actuales ignoran los estándares de asistencia: lectores de pantalla que leen en idiomas
                 incorrectos, elementos sin foco visual y la imposibilidad de operar sin un mouse.
               </p>
-              <a href="https://webaim.org/projects/million/" target="_blank" rel="noopener noreferrer" class="webaim-stat-badge" title="Ver Reporte WebAIM Million 2026">
+              <a href="https://webaim.org/projects/million/" target="_blank" rel="noopener noreferrer"
+                class="webaim-stat-badge" title="Ver Reporte WebAIM Million 2026">
                 <span class="webaim-stat-number">95,9%</span>
-                <span class="webaim-stat-label">de los sitios web tienen fallas de accesibilidad detectables · <strong>WebAIM 2026</strong></span>
+                <span class="webaim-stat-label">de los sitios web tienen fallas de accesibilidad detectables ·
+                  <strong>WebAIM 2026</strong></span>
                 <span class="webaim-stat-arrow">↗</span>
               </a>
             </div>
@@ -2187,7 +2187,8 @@
             <span class="feature-title">Pago de Servicios & Facturas</span>
           </div>
 
-          <div class="feature-item" data-feature="6" tabindex="0" role="button" aria-label="Ver Panel de Notificaciones">
+          <div class="feature-item" data-feature="6" tabindex="0" role="button"
+            aria-label="Ver Panel de Notificaciones">
             <span class="feature-num">06</span>
             <span class="feature-title">Panel de notificaciones</span>
           </div>
@@ -2353,9 +2354,12 @@
               acompañarnos en escalar este proyecto como un estándar real de inclusión fintech.
             </p>
             <div class="vision-badges-wrap">
-              <a href="https://github.com/porrettimaximo/Squad-stack-Frontend" target="_blank" rel="noopener noreferrer" class="vision-pill-badge cyan" title="Frontend · Squad-stack">⬡ FRONTEND</a>
-              <a href="https://github.com/MicaMulato/Squad-stack" target="_blank" rel="noopener noreferrer" class="vision-pill-badge cyan" title="Backend · Squad-stack">⬡ BACKEND</a>
-              <button class="vision-pill-badge amber" id="btn-slide5-video" type="button" title="Ver Video Oficial de la Presentación">▶ VER VIDEO PRESENTACIÓN</button>
+              <a href="https://github.com/porrettimaximo/Squad-stack-Frontend" target="_blank" rel="noopener noreferrer"
+                class="vision-pill-badge cyan" title="Frontend · Squad-stack">⬡ FRONTEND</a>
+              <a href="https://github.com/MicaMulato/Squad-stack" target="_blank" rel="noopener noreferrer"
+                class="vision-pill-badge cyan" title="Backend · Squad-stack">⬡ BACKEND</a>
+              <button class="vision-pill-badge amber" id="btn-slide5-video" type="button"
+                title="Ver Video Oficial de la Presentación">▶ VER VIDEO PRESENTACIÓN</button>
               <span class="vision-pill-badge green">DEMO DISPONIBLE</span>
             </div>
           </div>
@@ -2433,14 +2437,19 @@
           <span id="video-lightbox-title">DigitalArs · Video de la Presentación Oficial (Squad-stack)</span>
         </div>
         <div class="lightbox-actions-wrap">
-          <a href="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-rect" style="padding: 4px 10px; font-size: 11px; text-decoration: none; color: var(--accent-cyan);" title="Abrir en Google Drive">
+          <a href="https://drive.google.com/file/d/1uK61cXWE1TmD2dO7C6ozMWsbC7ESEEsU/view?usp=sharing" target="_blank"
+            rel="noopener noreferrer" class="btn-rect"
+            style="padding: 4px 10px; font-size: 11px; text-decoration: none; color: var(--accent-cyan);"
+            title="Abrir en Google Drive">
             ABRIR EN DRIVE ↗
           </a>
           <button class="lightbox-close-btn" id="video-lightbox-close" title="Cerrar (ESC)">✕</button>
         </div>
       </div>
       <div class="lightbox-body video-lightbox-body">
-        <iframe id="video-modal-iframe" class="lightbox-video-frame" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen title="Video Oficial de la Presentación"></iframe>
+        <iframe id="video-modal-iframe" class="lightbox-video-frame" src=""
+          allow="autoplay; encrypted-media; fullscreen" allowfullscreen
+          title="Video Oficial de la Presentación"></iframe>
       </div>
     </div>
   </div>
@@ -2830,7 +2839,7 @@
       if (paneHeroVideo) paneHeroVideo.classList.add('active');
       if (paneHeroPreview) paneHeroPreview.classList.remove('active');
       if (heroMediaCard) heroMediaCard.classList.add('video-active');
-      if (heroInlineIframe && (!heroInlineIframe.src || heroInlineIframe.src === 'about:blank')) {
+      if (heroInlineIframe && (!heroInlineIframe.src || heroInlineIframe.src === '' || heroInlineIframe.src === 'about:blank' || !heroInlineIframe.src.includes('drive.google.com'))) {
         heroInlineIframe.src = VIDEO_DRIVE_EMBED_URL;
       }
     }
